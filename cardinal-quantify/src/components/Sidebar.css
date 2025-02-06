@@ -17,11 +17,12 @@
   .sidebar ul {
     list-style: none;
     padding: 0;
+    
   }
   
   .sidebar li {
     padding: 10px;
-    cursor: pointer;
+    cursor: pointer;    
   }
   
   .sidebar li:hover {
