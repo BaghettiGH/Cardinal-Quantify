@@ -2,6 +2,7 @@
     width: 10%;
     height: 100vh;
     background: #302f2f;
+    transition: width 0.3s ease-in-out;
     color: white;
     padding:0;
     position: fixed;
@@ -36,4 +37,18 @@
     width: 100%;
     padding:10px;
   }
+.sidebar.collapsed {
+  width: 60px;
+  overflow: hidden;
+}
+
+.sidebar button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
   
