@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Sidebar from "./components/Sidebar";
+import Taskbar from"./components/Taskbar";
 
 function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -14,13 +15,7 @@ function App() {
       <div className={`main-content ${isSidebarCollapsed ? "collapsed" : "expanded"}`}>
         <h1>Course Name</h1>
         {/* Other UI content here */}
-        <div className ="taskbar">
-          <ul>
-            <li>Compute Grade</li>
-            <li>Estimate Grade</li>
-          </ul>
-          
-          </div>
+      <Taskbar/>
       </div>
     </div>
   );
