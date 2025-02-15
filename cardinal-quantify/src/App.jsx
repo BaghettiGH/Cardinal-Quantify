@@ -4,29 +4,27 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Courses from "./pages/Courses";
 import Feedback from "./pages/Feedback";
 
-import Signout from "./pages/Sign out";
+import Signout from "./pages/Signout";
 import Sidebar from "./components/Navbar";
-
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 
 function App() {
   
-
   return (
-    <Router>
-      <div className="app">
-        <Sidebar />
-    
-          <Routes>
-            <Route path="/" element={<Courses />} />
-            <Route path="/feedback" element={<Feedback />} />
-            <Route path="/signout" element={<Signout />} />
-          
-          </Routes>
-    
-        
-      </div>
-    </Router>
+    <div>
+      
+      <Router>
+     
+      
+      <Routes>
+        <Route path = "/" element={<Login />} />
+        <Route path = "/signup" element={<Signup />} />
+      </Routes>
+     
+      </Router>
+    </div>
   );
 }
 
