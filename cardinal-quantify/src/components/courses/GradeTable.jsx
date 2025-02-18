@@ -1,31 +1,38 @@
-import React from 'react'
+import React from 'react';
 
 
-function CalculateButton(){
-    const handleClick = () => {
-        alert("Button Clicked!");
-    };
-    return <button onClick={handleClick}>Calculate</button>
-}
+// function CalculateButton(){
+//     const handleClick = () => {
+//         alert("Button Clicked!");
+//     };
+//     return <button onClick={handleClick}>Calculate</button>;
+// }
 
 function GradeTable(){
 return(
-<div className = "GradeTable">
-    <table>
+<div className="GradeTable">
+    <table border="1">
         <thead>
         <tr>
             <th>Item Name</th>
             <th>Weight</th>
             <th>Grade</th>
-            <th><CalculateButton /></th>
+            <th></th>
 
         </tr>
         </thead>
+        <tbody>
+        <tr>    
+            <td>Assignment 1</td>
+            <td>10%</td>
+            <td>90%</td>
+            <td></td>
 
 
+        </tr>
 
 
-
+        </tbody>
 
     </table>
 </div>
@@ -37,4 +44,4 @@ return(
 }
 
 export default GradeTable;
-export { CalculateButton}
+// export { CalculateButton};

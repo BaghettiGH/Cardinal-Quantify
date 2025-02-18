@@ -16,17 +16,14 @@ function App() {
     <Router>
       <div className="app">
         <Sidebar />
-    
           <Routes>
             <Route path="/" element={<Courses />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/signout" element={<Signout />} />
-          
           </Routes>
-    
-        
       </div>
     </Router>
+
   );
 }
 

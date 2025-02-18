@@ -1,5 +1,7 @@
 @import "./_variables";
 
+
+
 body {
     overflow: hidden;
     height: 100vh;
@@ -23,7 +25,7 @@ h1 {
     top: 0;
     left: 0;
     padding: 2rem 2rem;
-    width: 14rem;
+    width: 10%;
     height: 100vh;
     transition: 0.5s all;
 
@@ -48,7 +50,7 @@ h1 {
         content: "";
         background-color: $yellow;
         position: absolute;
-        right: (-35px / 2);
+        right: (35px / 2);
         top: calc(9rem / 1.15);
         width: 35px;
         height: 35px;

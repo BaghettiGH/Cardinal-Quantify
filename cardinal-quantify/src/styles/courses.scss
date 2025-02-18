@@ -1,0 +1,33 @@
+.courses-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: blue;
+  }
+  
+  .main-content {
+    margin-left: 250px; /* Adjust this value to match the width of the sidebar */
+    padding: 20px;
+    transition: margin-left 0.3s;
+    background-color:aqua;
+    display:block;
+  }
+  
+  .sidebar.active + .courses-container .main-content {
+    margin-left: 6%; /* Adjust this value to match the width of the active sidebar */
+  }
+
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 0;
+    }
+  }
+  h1 {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
+.GradeTable{
+
+    display:block;
+}

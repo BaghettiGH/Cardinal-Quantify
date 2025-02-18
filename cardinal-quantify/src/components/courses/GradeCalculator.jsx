@@ -6,12 +6,6 @@ return (
     <div>
         <GradeTable/>
     </div>
-    
-
-
-
-
-
     );
 }
 

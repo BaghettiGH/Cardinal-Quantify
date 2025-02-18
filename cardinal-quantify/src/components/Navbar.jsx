@@ -4,7 +4,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaBook } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
-
+// import '.styles/Navbar.scss';
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => { 
