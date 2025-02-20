@@ -1,9 +1,9 @@
 import React from 'react'
-
+import GradeTable from '../components/courses/GradeTable';
 const Feedback = () => {
   return (
-    <div><h1>Feedback</h1></div>
-  )
+    <GradeTable />
+  );
 }
 
 export default Feedback;

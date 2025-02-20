@@ -1,10 +1,11 @@
 import React from 'react'
-import GradeTable from './GradeTable'
+import GradeTable from './GradeTable';
 function GradeCalculator(){
 
 return (
     <div>
-        <GradeTable/>
+        <p>Grade Calculator</p>
+        <GradeTable />
     </div>
     );
 }

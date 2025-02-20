@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "../../styles/courses.scss";
 
 // function CalculateButton(){
 //     const handleClick = () => {
@@ -10,7 +10,6 @@ import React from 'react';
 
 function GradeTable(){
 return(
-<div className="GradeTable">
     <table border="1">
         <thead>
         <tr>
@@ -27,21 +26,18 @@ return(
             <td>10%</td>
             <td>90%</td>
             <td></td>
-
-
         </tr>
 
 
         </tbody>
 
     </table>
-</div>
 
 
 
 
     );
-}
+};
 
 export default GradeTable;
 // export { CalculateButton};
