@@ -23,8 +23,14 @@ return(
         <tbody>
         <tr>    
             <td>Assignment 1</td>
-            <td>10%</td>
+            <td>50%</td>
             <td>90%</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Assignment 2</td>
+            <td>50%</td>
+            <td>80%</td>
             <td></td>
         </tr>
 

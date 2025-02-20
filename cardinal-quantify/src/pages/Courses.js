@@ -9,7 +9,7 @@ const Courses = () => {
       <div className="main-content">
       <h1>Courses</h1>        
       <div style={{border: "1px solid black", padding: "10px"}}>
-        Test div
+        Compute Grade
       </div>
       <GradeTable />
     </div>
