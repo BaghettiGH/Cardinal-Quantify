@@ -1,30 +1,10 @@
 import React, {useState} from 'react';
 import "../../styles/courses.scss";
+import CalculateButton from './CalculateButton';
 
-function CalculateButton({ assignments }) {
-    const handleClick = () => {
-        let totalGradeWeight = assignments.reduce((sum, item) => sum + parseFloat(item.weight || 0), 0);
-        if (totalGradeWeight !== 100){
-            alert("Total Grade Weight must equal 100. TotalGrade:" +totalGradeWeight);
-            return;
-        }
-        
-        let finalGrade = assignments.reduce((sum, item) => {
-            const numGrade = parseFloat(item.grade);
-            const numTotalGrade = parseFloat(item.totalGrade);
-            const numWeight = parseFloat(item.weight);
-            
-            if (isNaN(numGrade) || isNaN(numTotalGrade) || isNaN(numWeight) || numTotalGrade === 0) {
-                return sum;
-            }
-            return sum + (numGrade / numTotalGrade * numWeight);
-        },0);
-        alert("Final Grade: " + finalGrade);
-    };
-    return <button onClick={handleClick}>Calculate</button>;
-}
 
-function GradeTable(){
+
+function GradeTable({setFinalGrade}) {
     const [assignments, setAssignments] = useState([
         {id: 1, name: "Assignment 1", grade: "", totalGrade: "", weight: ""},
         {id: 2, name: "Assignment 2", grade: "", totalGrade: "", weight: ""},
@@ -39,18 +19,20 @@ function GradeTable(){
     };
 
     const updateAssignment = (id, field, value) => {
-        setAssignments(assignments.map(item => (item.id === id ? {...item, [field]: value} : item)));
+        setAssignments(assignments.map(item => 
+            (item.id === id ? {...item, [field]: value} : item)
+        ));
     };
 
     return(
-        <div>
+        <div className = "grade-table">
         <table border="1">
             <thead>
                 <tr>
                     <th>Item Name</th>
                     <th>Grade</th>
                     <th>Weight</th>
-                    <th><CalculateButton assignments={assignments} /></th>
+                    <th><CalculateButton assignments={assignments} setFinalGrade={setFinalGrade}/></th>
                 </tr>
             </thead>
             <tbody>
@@ -83,9 +65,8 @@ function GradeTable(){
         </table>
         <button onClick={addRow}>+</button>
     </div>
-    )
+    );
 
-};
+}
 
 export default GradeTable;
-export { CalculateButton};

@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/courses.scss';
 import GradeTable from '../components/courses/GradeTable';
 
 const Courses = () => {
   console.log("Courses component loaded");
+  const [finalGrade, setFinalGrade] = useState(null);
+
   return (
     <div className="courses-container">
       <div className="main-content">
-      <h1>Courses</h1>        
+      <div className = "header">
+      <h1>Courses</h1>
+      <h3>{finalGrade !== null ? finalGrade.toFixed(2) : "-"}</h3>
+
+      </div>      
       <div style={{border: "1px solid black", padding: "10px"}}>
         Compute Grade
       </div>
-      <GradeTable />
+      <GradeTable setFinalGrade = {setFinalGrade}/>
     </div>
     </div>
   );
