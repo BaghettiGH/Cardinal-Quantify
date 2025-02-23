@@ -11,11 +11,14 @@ const Courses = () => {
       <div className="main-content">
       <div className = "header">
       <h1>Courses</h1>
-      <h3>{finalGrade !== null ? finalGrade.toFixed(2) : "-"}</h3>
+      <div className = "final-grade"><h3>{finalGrade !== null ? finalGrade.toFixed(2) : "--"}</h3></div>
 
       </div>      
-      <div style={{border: "1px solid black", padding: "10px"}}>
-        Compute Grade
+      <div className = "task-bar">
+        <ul>
+          <li>Compute Grade</li>
+          <li>Estimate Grade</li>
+        </ul>
       </div>
       <GradeTable setFinalGrade = {setFinalGrade}/>
     </div>
