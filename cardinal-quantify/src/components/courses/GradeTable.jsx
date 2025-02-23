@@ -26,7 +26,7 @@ function GradeTable({setFinalGrade}) {
 
     return(
         <div className = "grade-table">
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>Item Name</th>

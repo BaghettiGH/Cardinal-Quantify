@@ -15,7 +15,7 @@ const Courses = () => {
 
       </div>      
       <div className = "task-bar">
-        <ul>
+        <ul className = "task-list">
           <li>Compute Grade</li>
           <li>Estimate Grade</li>
         </ul>
