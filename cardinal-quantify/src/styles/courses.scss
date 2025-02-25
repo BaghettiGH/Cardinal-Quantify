@@ -177,3 +177,19 @@
         }
       }
     }
+.item-name-input{
+  font-family: "Inter", serif;
+  border: none;
+  outline:none;
+  background: transparent;
+  border-bottom: 2px solid black;
+  text-align: center;
+  transition: border-bottom 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  width:auto;
+}
+.item-name-input:not(:placeholder-shown) {
+  border-bottom: none;
+}
+.item-name-input:focus{
+    border: transparent;
+  } 

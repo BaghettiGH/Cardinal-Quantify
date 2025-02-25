@@ -51,7 +51,13 @@ function GradeTable({setFinalGrade}) {
 
                         return(                    
                         <tr key={assignment.id}>
-                        <td>{assignment.name}</td>
+                        <td><input 
+                                className="item-name-input"
+                                placeholder =" "
+                                value = {assignment.name}
+                                onChange={(e) => updateAssignment(assignment.id, "name", e.target.value)}
+                            />
+                        </td>
                         <td>
                             <div 
                             className = "grade-input-div"
