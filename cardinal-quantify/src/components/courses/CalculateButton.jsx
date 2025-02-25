@@ -23,7 +23,7 @@ function CalculateButton({ assignments, setFinalGrade }) {  // ✅ Accept setFin
         setFinalGrade(finalGrade);  // ✅ Updates Courses.js
     };
 
-    return <button onClick={handleClick}>Calculate</button>;
+    return <div className = "calcButton"><button onClick={handleClick}>Calculate</button></div>;
 }
 
 export default CalculateButton;

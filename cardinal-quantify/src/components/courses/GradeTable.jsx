@@ -36,11 +36,27 @@ function GradeTable({setFinalGrade}) {
                 </tr>
             </thead>
             <tbody>
-                {assignments.map((assignment) => (
-                    <tr key={assignment.id}>
+                {assignments.map((assignment) => {
+                    const grade = parseFloat(assignment.grade) || 0;
+                    const totalGrade = parseFloat(assignment.totalGrade) || 1;
+                    const percentage = (grade / totalGrade) * 100;
+                    
+                    const getBackgroundColor = () =>{
+                        if (!assignment.grade || !assignment.totalGrade) return "#CDCCCC";
+                        if (percentage >= 95) return "#39E379";
+                        if (percentage >= 85) return "#CDEE4B";
+                        if (percentage >= 70) return "#FF9600";
+                        return "#FF3B30";
+                        };
+
+                        return(                    
+                        <tr key={assignment.id}>
                         <td>{assignment.name}</td>
                         <td>
-                            <div className = "grade-input-div">
+                            <div 
+                            className = "grade-input-div"
+                            style= {{ backgroundColor: getBackgroundColor() }}
+                            >
                             <input
                                 className = "grade-input"
                                 value={assignment.grade}
@@ -65,7 +81,8 @@ function GradeTable({setFinalGrade}) {
                             </div>
                         </td>
                     </tr>
-                ))}
+                );
+            })}
             </tbody>
         </table>
         <div className = "add-row">
