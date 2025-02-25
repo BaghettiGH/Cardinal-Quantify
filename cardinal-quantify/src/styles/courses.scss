@@ -87,3 +87,46 @@
    .grade-table th, td{
     text-align:center;
    }
+   .grade-input-div{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:9ch;
+    height:2rem;
+    border-radius:100px;
+    background-color:#CDCCCC;
+    margin:auto;
+   }
+  
+   .grade-input{
+    font-family: "Inter", serif;
+    font-weight: bold;
+    border: none;
+    outline:none;
+    width:3ch;
+    background: transparent;
+   }
+   .total-grade-input{
+    font-family: "Inter", serif;
+    font-weight: bold;
+    border: none;
+    outline:none;
+    width:3ch ;
+    background: transparent;
+   }
+   .weight-input{
+    font-family: "Inter", serif;
+    font-weight: bold;
+    border: none;
+    outline:none;
+    width:3ch;
+    background: transparent;  
+    border-bottom: 2px solid black;
+    transition: border-bottom 0.1s ease-in-out, opacity 0.1s ease-in-out;
+   }
+   .weight-input:not(:placeholder-shown) {
+    border-bottom: none;
+}
+    .weight-input:focus{
+      border: transparent;
+    }

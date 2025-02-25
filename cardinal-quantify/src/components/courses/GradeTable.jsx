@@ -40,24 +40,29 @@ function GradeTable({setFinalGrade}) {
                     <tr key={assignment.id}>
                         <td>{assignment.name}</td>
                         <td>
+                            <div className = "grade-input-div">
                             <input
-                                placeholder="Enter Grade."
+                                className = "grade-input"
                                 value={assignment.grade}
                                 onChange={(e) => updateAssignment(assignment.id, "grade", e.target.value)}
                             />
-                            /
+                            <b>/</b>
                             <input
-                                placeholder="Enter Total Grade."
+                                className = "total-grade-input"
                                 value={assignment.totalGrade}
                                 onChange={(e) => updateAssignment(assignment.id, "totalGrade", e.target.value)}
                             />
+                            </div>
                         </td>
                         <td>
+                            <div className = "weight-div">
                             <input
-                                placeholder="Enter Grade Weight."
+                                className = "weight-input"
                                 value={assignment.weight}
                                 onChange={(e) => updateAssignment(assignment.id, "weight", e.target.value)}
+                                placeholder=" "
                             />
+                            </div>
                         </td>
                     </tr>
                 ))}
