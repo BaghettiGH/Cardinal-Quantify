@@ -63,7 +63,9 @@ function GradeTable({setFinalGrade}) {
                 ))}
             </tbody>
         </table>
+        <div className = "add-row">
         <button onClick={addRow}>+</button>
+        </div>
     </div>
     );
 
