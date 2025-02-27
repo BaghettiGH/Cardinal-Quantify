@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
  
+=======
+import React from 'react'
+import GradeTable from '../components/courses/GradeTable';
+>>>>>>> calcpage
 const Feedback = () => {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
@@ -12,6 +17,7 @@ const Feedback = () => {
   };
  
   return (
+<<<<<<< HEAD
     <div>
      
       {submitted ? (
@@ -42,4 +48,10 @@ const Feedback = () => {
   );
 };
  
+=======
+    <GradeTable />
+  );
+}
+
+>>>>>>> calcpage
 export default Feedback;

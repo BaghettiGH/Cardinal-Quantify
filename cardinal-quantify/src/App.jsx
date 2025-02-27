@@ -28,6 +28,7 @@ function App() {
 
   
   return (
+<<<<<<< HEAD
    
       <Router>
         <div className="App">
@@ -61,6 +62,20 @@ function App() {
         </div>
       </Router>
 
+=======
+    <Router>
+      <div className="app">
+        <Sidebar />
+          <Routes>
+            <Route path="/" element={<Courses />} />
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/signout" element={<Signout />} />
+          </Routes>
+      </div>
+    </Router>
+    
+      
+>>>>>>> calcpage
   );
 }
 
