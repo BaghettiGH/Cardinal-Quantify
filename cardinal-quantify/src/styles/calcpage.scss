@@ -193,3 +193,8 @@
 .item-name-input:focus{
     border: transparent;
   } 
+.task-list li a{
+  text-align: none;
+  color:inherit;
+  cursor:pointer;
+}

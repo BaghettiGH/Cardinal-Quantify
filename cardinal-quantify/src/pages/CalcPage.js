@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import '../styles/courses.scss';
+import '../styles/calcpage.scss';
 import GradeTable from '../components/courses/GradeTable';
+import { Link } from 'react-router-dom';
 
 const Courses = () => {
   console.log("Courses component loaded");
@@ -26,8 +27,8 @@ const Courses = () => {
       </div>      
       <div className = "task-bar">
         <ul className = "task-list">
-          <li>Compute Grade</li>
-          <li>Estimate Grade</li>
+          <li><Link to = "/compute-grade">Compute Grade</Link></li>
+          <li><Link to = "/estimate-grade">Estimate Grade</Link></li>
         </ul>
       </div>
       <GradeTable setFinalGrade = {setFinalGrade}/>
