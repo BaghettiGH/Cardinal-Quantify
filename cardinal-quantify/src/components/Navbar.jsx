@@ -4,15 +4,10 @@ import { FaRegUser } from "react-icons/fa";
 import { FaBook } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
-<<<<<<< HEAD
 import {doc, getDoc} from "firebase/firestore";
 import { toast } from 'react-toastify';
 import { auth, db } from './firebase';
-
-
-=======
 // import '.styles/Navbar.scss';
->>>>>>> calcpage
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => { 

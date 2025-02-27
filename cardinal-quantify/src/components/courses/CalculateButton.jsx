@@ -1,7 +1,7 @@
 import React from 'react';
-import "../../styles/courses.scss";
+import "../../styles/calcpage.scss";
 
-function CalculateButton({ assignments, setFinalGrade }) {  // ✅ Accept setFinalGrade
+function CalculateButton({ assignments, setFinalGrade }) {  
     const handleClick = () => {
         let totalGradeWeight = assignments.reduce((sum, item) => sum + parseFloat(item.weight || 0), 0);
         if (totalGradeWeight !== 100) {
@@ -20,7 +20,7 @@ function CalculateButton({ assignments, setFinalGrade }) {  // ✅ Accept setFin
             return sum + (numGrade / numTotalGrade) * numWeight;
         }, 0);
 
-        setFinalGrade(finalGrade);  // ✅ Updates Courses.js
+        setFinalGrade(finalGrade);
     };
 
     return <div className = "calcButton"><button onClick={handleClick}>Calculate</button></div>;

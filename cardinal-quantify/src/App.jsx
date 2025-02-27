@@ -4,10 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../src/styles/main.scss";
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import Courses from "./pages/Courses";
+import Courses from "./pages/CalcPage";
 import Feedback from "./pages/Feedback";
-
-
 import Sidebar from "./components/Navbar";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -28,7 +26,6 @@ function App() {
 
   
   return (
-<<<<<<< HEAD
    
       <Router>
         <div className="App">
@@ -62,20 +59,6 @@ function App() {
         </div>
       </Router>
 
-=======
-    <Router>
-      <div className="app">
-        <Sidebar />
-          <Routes>
-            <Route path="/" element={<Courses />} />
-            <Route path="/feedback" element={<Feedback />} />
-            <Route path="/signout" element={<Signout />} />
-          </Routes>
-      </div>
-    </Router>
-    
-      
->>>>>>> calcpage
   );
 }
 

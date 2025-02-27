@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import "../../styles/courses.scss";
+import "../../styles/calcpage.scss";
 import CalculateButton from './CalculateButton';
 
 
