@@ -7,7 +7,7 @@ body {
     height: 100vh;
     width: 100vw;
     font-family: $fontFamily;
-    background-color: white;
+    background-color:$mediumGrey;
     
 }
 
@@ -16,35 +16,38 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    padding: 2rem 2rem;
-    width: 10%;
+    width: 16rem;
     height: 100vh;
     transition: 0.5s all;
 
     .logoContainer {
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding-top:30px;
-
-       .logo{
-        height:auto;
-        width: 25%;
-        padding: 0;
-       }
+        justify-content: flex-start;
+        padding: 2rem 2rem;
+        
+        .logo{
+            width: 50px;
+            min-width: 50px;
+            max-width: 50px;
+            padding: 0;
+            flex-shrink: 0; 
+           }
 
         h2.title {
-            font-size: 20px;
+            font-size: 31.42px;
             color: $white;
-            padding:0;
+            padding:1rem 0 0 1rem;
         }
     }
+
+    
 
     .burgerContainer {
         content: "";
         background-color: $yellow;
         position: absolute;
-        right: (35px / 2);
+        right: (-35px / 2);
         top: calc(9rem / 1.15);
         width: 35px;
         height: 35px;
@@ -115,13 +118,14 @@ body {
     .profileContainer {
         display: flex;
         align-items: center;
+        margin-top: 4rem;
         justify-content: flex-start;
-        padding: 6rem 0 0 0;
+        padding: 1rem;
 
-        img {
-            width: auto;
-            height: 2rem;
+        .profile{
+            flex-shrink: 0;
         }
+
 
         .profileContents {
             padding: 0 0 0 1rem;
@@ -129,10 +133,12 @@ body {
             p.name {
                 padding: 0;
                 margin: 0;
-                font-size: 15px;
-                color: $white;
+                font-size: 20px;
+                color: white;
                 text-transform: capitalize;
-                font-weight: $heavyFont;
+                white-space: nowrap; 
+                overflow: hidden;
+                text-overflow: ellipsis; 
             }
 
             p {
@@ -140,13 +146,13 @@ body {
                 margin: 0;
                 font-size: 13.9px;
                 color: $white;
-                text-transform: lowercase;
+                
             }
         }
     }
 
     .contentsContainer {
-        margin: 2rem 0 0 0;
+        margin: 1rem 0 0 0;
 
         ul {
             display: flex;
@@ -163,25 +169,24 @@ body {
                 justify-content: flex-start;
                 flex-direction: row;
                 margin: 0.75rem 0;
-                padding: 0.75rem 0;
+                padding: 1rem;
                 width: 100%;
-                
                 cursor: pointer;
 
-                .icons {
-                    padding: 0 1rem 0 0.5rem;
+                .icons{
                     z-index: 2;
-                    color: black;
+                    color: white;
+                    flex-shrink: 0;
                 }
 
-                a {
+                .link {
                     text-decoration: none;
                     color: $white;
                     font-size: 20px;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    margin: 0 0 0 0.5rem;
+                    margin: 0 0 0 0.75rem;
                 }
             }
 
@@ -190,6 +195,10 @@ body {
 
                 a {
                     color: $Black;
+                }
+
+                .icons{
+                    color:$Black;
                 }
                 
             }
@@ -203,10 +212,22 @@ body {
 }
 
 .sidebar.active {
-    width: 3rem;
+    width: 60px;
     transition: 0.5s all;
 
+    .logo{
+        width:40px;
+        min-width: 40px;
+        max-width: 40px;
+        height:auto;
+        transition:0.5s all;
+    }
+    
+
+
     .logoContainer.active {
+        padding: 2rem 2rem 0 0.5rem ;
+        transition: 0.5s all;
         h2.title {
             opacity: 0;
         }
@@ -231,14 +252,18 @@ body {
     }
 
     .profileContainer {
+        margin-top: 4rem;
+        padding-top: 3rem;
         .profileContents {
             opacity: 0;
         }
     }
 
     .contentsContainer {
-        a {
+        .link {
             opacity: 0;
         }
     }
+
+    
 }
