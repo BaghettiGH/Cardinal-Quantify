@@ -42,61 +42,63 @@ function Signup() {
     }
 
   return (
-    <div className='wrapper'>
-    <img src={Logo} alt= "Logo"/>
-    <div className='form-wrapper sign in'>
-   <form onSubmit={handleRegister}>
-       
+    <div classname ='register-wrapper'>
+        <div className='wrapper'>
+            <img src={Logo} alt= "Logo"/>
+            <div className='form-wrapper'>
+                <form onSubmit={handleRegister}>
+                    
 
-        <div className='input-group'>
-           
-            <input 
-                type='text' 
-                value={fname} 
-                onChange={(e) => setFname(e.target.value)} 
-                required/>
-             <label>First name</label>
-        </div>
+                        <div className='input-group'>
+                        
+                            <input 
+                                type='text' 
+                                value={fname} 
+                                onChange={(e) => setFname(e.target.value)} 
+                                required/>
+                            <label>First name</label>
+                        </div>
 
-        <div className='input-group'>
-           
-            <input 
-                type='text' 
-                value={lname} 
-                onChange={(e) => setLname(e.target.value)} 
-                required/>
-             <label>Last name</label>
-        </div>
+                        <div className='input-group'>
+                        
+                            <input 
+                                type='text' 
+                                value={lname} 
+                                onChange={(e) => setLname(e.target.value)} 
+                                required/>
+                            <label>Last name</label>
+                        </div>
 
-        <div className='input-group'>
-           
-            <input 
-                type='email' 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                required/>
-             <label>Email address</label>
-        </div>
+                        <div className='input-group'>
+                        
+                            <input 
+                                type='email' 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)} 
+                                required/>
+                            <label>Email address</label>
+                        </div>
 
-        <div className='input-group'>
-           
-            <input 
-                type='password' 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                required/>
-             <label>Password</label>
-        </div>
-        <button type="submit">Sign Up</button>
-        <div className='signUp-link'>
-            <p>
-            Already registered? <a href="/login">Login</a> </p>
-        </div>
-     
-     
-</form>
-</div>
-</div> 
+                        <div className='input-group'>
+                        
+                            <input 
+                                type='password' 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)} 
+                                required/>
+                            <label>Password</label>
+                        </div>
+                        <button type="submit" class="button">Sign Up</button>
+                        <div className='signUp-link'>
+                            <p>
+                            Already registered? <a href="/login">Login</a> </p>
+                        </div>
+                    
+                    
+                </form>
+            </div>
+         </div> 
+    </div>
   )
 }
 

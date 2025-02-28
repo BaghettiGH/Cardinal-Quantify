@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { auth, db } from './firebase';
 // import '.styles/Navbar.scss';
 import { useLocation } from "react-router-dom";
+import "../styles/navbar.scss";
 
 const Navbar = () => { 
     const location = useLocation();
@@ -51,6 +52,7 @@ const Navbar = () => {
     
 
     return (
+    <div className='navbar-wrapper'>
         <div className={closeMenu === false ? "sidebar" : "sidebar active"}>
             <div
                 className={
@@ -85,7 +87,7 @@ const Navbar = () => {
                 }
             >
                 
-                <FaRegUser className="profile" size="2rem" color="white"/>
+                <FaRegUser className="profile" size="25px" color="white"/>
                 {userDetail ? (
                     <>
                     <div className="profileContents">
@@ -106,23 +108,25 @@ const Navbar = () => {
                 }
             >
                 <ul>
+                
                     <li className={location.pathname === "/courses" ? "active" : ""}>
-                      <FaBook color="white" size = "1.5em" className="icons" />
-                        <a href="/courses">Courses</a>
+                    <a href="/courses"><FaBook size="25px" className="icons" /></a>
+                        <a href="/courses" className="link">Courses</a>
                     </li>
                     <li className={location.pathname === "/feedback" ? "active" : ""}>
-                    <MdFeedback color="white" size = "1.5em" className="icons" />
-                        <a href="/feedback">Feedback</a>
+                    <a href="/feedback"><MdFeedback size="25px" className="icons" /></a>
+                        <a href="/feedback" className="link">Feedback</a>
                     </li>
 
                     <li onClick={handleLogout}>
-                    <FaSignOutAlt color="white" size = "1.5em" className="icons" />
-                        <a href="#">Signout</a>
+                    <a href="#"><FaSignOutAlt size="25px" className="icons" /></a>
+                        <a href="#" className="link">Signout</a>
                     </li>
                    
                 </ul>
             </div>
         </div>
+    </div>
     );
 };
 

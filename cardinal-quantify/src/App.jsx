@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../src/styles/main.scss";
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Courses from "./pages/CalcPage";
 import Feedback from "./pages/Feedback";
@@ -48,7 +47,7 @@ function App() {
                   </>
                 }>
 
-                <Route path = "/dashboard" element={<Sidebar />} />
+<Route path = "/dashboard" element={<Sidebar />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/feedback" element={<Feedback />} />
                 </Route>
