@@ -32,5 +32,17 @@
 .feedback-input-div{
     padding-bottom:7px;
     border-bottom: 1px solid black;
-    
 }
+.feedback-submit{
+    font-family: "Inter", serif;
+    background-color: #F1F1F1;
+    border: none;
+    outline:none;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor:pointer;
+    align-self: flex-end;
+    display:flex;
+    font-weight:bold;
+}
+
