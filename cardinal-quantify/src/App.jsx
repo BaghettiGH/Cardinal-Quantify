@@ -51,6 +51,7 @@ function App() {
 <Route path = "/dashboard" element={<Sidebar />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/feedback" element={<Feedback />} />
+                <Route path="/course/:name" element={<CalcPage />} />
                 </Route>
               </Routes>
               <ToastContainer />

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import '../styles/Courses.scss';
+import { Link } from "react-router-dom";
+
 
 //For random border color sa side ng course container
 const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 const Courses = () => {
+  //const navigate = useNavigate(); 
   const [courses, setCourses] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [newCourse, setNewCourse] = useState({ name: "", subject: "", grade: "" });
@@ -115,7 +118,13 @@ const Courses = () => {
         >
           <div>
             <p style={{ margin: 0, fontSize: "20px", color: "gray" }}>{course.subject}</p>
-            <p style={{ margin: 0, fontSize: "30px", fontWeight: "bold" }}>{course.name}</p>
+            
+            <Link 
+  to={`/course/${course.name}`} 
+  style={{ margin: 0, fontSize: "30px", fontWeight: "bold", textDecoration: "none", color: "inherit" }}
+>
+  {course.name}
+</Link>
           </div>
           <span
 

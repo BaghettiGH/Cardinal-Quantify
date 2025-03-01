@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import '../styles/calcpage.scss';
 import GradeTable from '../components/courses/GradeTable';
 import { NavLink } from 'react-router-dom';
-
-const Courses = () => {
+import { useParams } from "react-router-dom";
+  
+const CalcPage = () => {
   console.log("Courses component loaded");
+  const { name } = useParams();
   const [finalGrade, setFinalGrade] = useState(null);
 
   const getBackgroundColor = () =>{
@@ -21,7 +23,7 @@ const Courses = () => {
     <div className="courses-container">
       <div className="main-content">
       <div className = "header">
-      <h1>Courses</h1>
+      <h1>{ name }</h1>
       <div className = "final-grade" style = {{ backgroundColor: getBackgroundColor() }}>
         <h3>{finalGrade !== null ? finalGrade.toFixed(2) : "--"}</h3></div>
       </div>      
@@ -41,4 +43,5 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+
+export default CalcPage;
