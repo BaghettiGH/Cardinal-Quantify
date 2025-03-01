@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import '../styles/Courses.scss';
 
+//For random border color sa side ng course container
 const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 const Courses = () => {
@@ -8,12 +10,14 @@ const Courses = () => {
   const [newCourse, setNewCourse] = useState({ name: "", subject: "", grade: "" });
   const [editIndex, setEditIndex] = useState(null);
 
+  //To determine running ave
   const getRunningAverage = () => {
-    if (courses.length === 0) return "N/A"; // No grades yet
+    if (courses.length === 0) return "N/A"; // If no grades yet
     const total = courses.reduce((sum, course) => sum + Number(course.grade), 0);
     return (total / courses.length).toFixed(2); // Average with 2 decimal places
   };  
 
+  //To determine the color of the grade container
   const getGradeColor = (grade) => {
     const numericGrade = parseFloat(grade);
     if (numericGrade >= 1 && numericGrade <= 1.99) return "#33B864";
@@ -24,6 +28,7 @@ const Courses = () => {
     return "red";
   };
 
+  // error handling if no input
   const addOrEditCourse = () => {
     if (!newCourse.name || !newCourse.subject || !newCourse.grade) {
       alert("All fields are required!");
@@ -79,44 +84,49 @@ const Courses = () => {
           borderRadius: "5px",
           marginBottom: "20px",
           textAlign: "center",
+          height: "200px",
           width: "100%",
-          maxWidth: "1200px",
+          maxWidth: "2000px",
           marginLeft: "100px",
         }}
       >
-        <h2 style={{ margin: 0 }}>Running Average</h2>
-        <p style={{ fontSize: "32px", margin: "5px 0" }}>{getRunningAverage()}</p>
+        <h2 style={{ margin: 10, fontSize: "50px" }}>Running Average</h2>
+        <p style={{ fontSize: "40px", margin: "5px 0" }}>{getRunningAverage()}</p>
       </div>
 
       {/* Courses List */}
       {courses.map((course, index) => (
-        <div
+        <div className="courses-container"
           key={index}
           style={{
             background: "white",
-            boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-            padding: "10px",
-            marginBottom: "10px",
+            boxShadow: "5px 5px 10px rgba(0,0,0,0.1)",
+            padding: "15px",
+            marginBottom: "30px",
             borderRadius: "5px",
             position: "relative",
-            borderLeft: `8px solid ${course.color}`,
+            borderLeft: `15px solid ${course.color}`,
             width: "100%",
-            maxWidth: "1210px",
+            maxWidth: "1990px",
             marginLeft: "100px",
-            height: "65px",
+            height: "150px",
+            zIndex: 1,
           }}
         >
           <div>
-            <p style={{ margin: "0", fontSize: "14px", color: "gray" }}>{course.subject}</p>
-            <p style={{ margin: "0", fontWeight: "bold" }}>{course.name}</p>
+            <p style={{ margin: 0, fontSize: "20px", color: "gray" }}>{course.subject}</p>
+            <p style={{ margin: 0, fontSize: "30px", fontWeight: "bold" }}>{course.name}</p>
           </div>
           <span
+
+          // grade container
             style={{
               background: getGradeColor(course.grade),
               color: "white",
-              padding: "8px 15px",
-              borderRadius: "15px",
-              marginLeft: "1100px",
+              padding: "10px 25px",
+              borderRadius: "20px",
+              marginLeft: "1800px",
+              fontSize: "25px",
             }}
           >
             {course.grade}
@@ -126,10 +136,18 @@ const Courses = () => {
               position: "absolute",
               top: "10px",
               right: "10px",
+              fontSize: "30px",
               cursor: "pointer",
             }}
+            //edit button
           >
-            <button onClick={() => editCourse(index)}>⋮</button>
+            <button onClick={() => editCourse(index)}style={{
+            border: "none",
+            background: "transparent",
+            cursor: "pointer",
+            fontSize: "30px",
+            }}
+             >⋮</button>
           </div>
         </div>
       ))}
@@ -139,17 +157,16 @@ const Courses = () => {
         onClick={() => setShowModal(true)}
         style={{
           position: "fixed",
-          bottom: "20px",
-          right: "20px",
+          bottom: "25px",
+          right: "30px",
           background: "#FFCE1B",
           border: "none",
-          padding: "20px",
+          padding: "25px",
           borderRadius: "50%", 
-          fontWeight: "bold",
-          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+          fontSize: "50px",   
           cursor: "pointer",
-          width: "60px",
-          height: "60px",
+          width: "70px",
+          height: "70px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -160,7 +177,7 @@ const Courses = () => {
 
       {/* Modal for Adding/Editing Course */}
       {showModal && (
-        <div
+        <div className="addEdit-container"
           style={{
             position: "fixed",
             top: 0,
@@ -237,6 +254,7 @@ const Courses = () => {
             </button>
 
             {editIndex !== null && (
+    // delete button
   <button
     onClick={() => {
       removeCourse(editIndex);
