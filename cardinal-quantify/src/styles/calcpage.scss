@@ -1,3 +1,9 @@
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .courses-container {
     height: 100vh;
     overflow-y: auto;
@@ -5,15 +11,15 @@
   }
   
   .main-content {
-    margin-left: 250px; /* Adjust this value to match the width of the sidebar */
-    transition: margin-left 0.3s;
+    flex:1;
+    margin-left: 16rem; /* Adjust this value to match the width of the sidebar */
+    transition: margin-left 0.3s ease-in-out;
     background-color:#F1F1F1;
     display:block;
   }
-  
-  .sidebar.active + .courses-container .main-content {
-    margin-left: 6%; /* Adjust this value to match the width of the active sidebar */
-  }
+  .sidebar.active + .main-content {
+    margin-left: 60px; /* Adjust to match collapsed sidebar */
+}
 
   @media (max-width: 768px) {
     .main-content {
@@ -43,8 +49,15 @@
     align-items:center;
     margin-right: 2em;
     border-radius: 200px;
+    padding:0;
     width:6rem;
     height:2.5rem;
+  }
+  .final-grade h3{
+    font-family: "Inter", serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top:0.5rem;
   }
   .task-bar{
     display:flex;
@@ -64,13 +77,21 @@
   .task-list{
     list-style-type: none;
     padding:0;
-    display:block;
     width:100%;
     margin-left:1.5rem;
   }
   .task-list li{
+    margin-top: 1rem;
     float:left;
     padding-right:15px;
+    font-weight: bold;
+  }
+  .task-list a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .task-list a.active-link{
+    color: #A234B5;
   }
   .grade-table {
    margin-top:20px;
@@ -101,19 +122,31 @@
    .grade-input{
     font-family: "Inter", serif;
     font-weight: bold;
+    font-size:0.9rem;
     border: none;
     outline:none;
-    width:3ch;
+    width:auto;
+    min-width: 2ch;
+    text-align:center;
     background: transparent;
    }
    .total-grade-input{
     font-family: "Inter", serif;
     font-weight: bold;
+    font-size:0.9rem;
     border: none;
     outline:none;
-    width:3ch ;
+    width:auto;
+    min-width: 2ch;
+    text-align:center;
     background: transparent;
    }
+   .grade-input-div b {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    flex-shrink: 0; 
+}
    .weight-input{
     font-family: "Inter", serif;
     font-weight: bold;
@@ -182,14 +215,12 @@
   border: none;
   outline:none;
   background: transparent;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
   text-align: center;
   transition: border-bottom 0.1s ease-in-out, opacity 0.1s ease-in-out;
   width:auto;
 }
-.item-name-input:not(:placeholder-shown) {
-  border-bottom: none;
-}
+
 .item-name-input:focus{
     border: transparent;
   } 

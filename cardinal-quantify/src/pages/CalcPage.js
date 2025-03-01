@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/calcpage.scss';
 import GradeTable from '../components/courses/GradeTable';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Courses = () => {
   console.log("Courses component loaded");
@@ -27,8 +27,12 @@ const Courses = () => {
       </div>      
       <div className = "task-bar">
         <ul className = "task-list">
-          <li><Link to = "/compute-grade">Compute Grade</Link></li>
-          <li><Link to = "/estimate-grade">Estimate Grade</Link></li>
+          <div className = "compute-grade-div">
+          <li><NavLink to = "/compute-grade" activeClassName="active-link">Compute Grade</NavLink></li>
+          </div>
+          <div className = "estimate-grade-div">
+          <li><NavLink to = "/estimate-grade" activeClassName="active-link">Estimate Grade</NavLink></li>
+          </div>
         </ul>
       </div>
       <GradeTable setFinalGrade = {setFinalGrade}/>

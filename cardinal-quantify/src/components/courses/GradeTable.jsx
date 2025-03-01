@@ -64,6 +64,8 @@ function GradeTable({setFinalGrade}) {
                             style= {{ backgroundColor: getBackgroundColor() }}
                             >
                             <input
+                                type="number"
+                                min="0"
                                 className = "grade-input"
                                 value={assignment.grade}
                                 onChange={(e) => updateAssignment(assignment.id, "grade", e.target.value)}
@@ -71,6 +73,8 @@ function GradeTable({setFinalGrade}) {
                             <b>/</b>
                             <input
                                 className = "total-grade-input"
+                                type="number"
+                                min="1"
                                 value={assignment.totalGrade}
                                 onChange={(e) => updateAssignment(assignment.id, "totalGrade", e.target.value)}
                             />
@@ -79,6 +83,9 @@ function GradeTable({setFinalGrade}) {
                         <td>
                             <div className = "weight-div">
                             <input
+                                type="number"
+                                min="0"
+                                max="100"
                                 className = "weight-input"
                                 value={assignment.weight}
                                 onChange={(e) => updateAssignment(assignment.id, "weight", e.target.value)}
