@@ -8,9 +8,11 @@
 .feedback-form{
    display:flex;
    flex-direction:column;
-   margin-left:17rem;
-   margin-right:17rem;
+   width:100%;
+   max-width:900px;
    padding-top:10rem;
+   margin-left:auto;
+   margin-right:auto;
 }
 .feedback-form h3{
     font-family: "Inter", serif;
@@ -44,5 +46,33 @@
     align-self: flex-end;
     display:flex;
     font-weight:bold;
+    align-items: center;
+    gap:8px;
 }
 
+@media (max-width: 1024px) {
+    .feedback-form {
+        width: 95%;
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .feedback-form {
+        width: 95%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .feedback-form {
+        padding: 1.5rem;
+    }
+    .feedback-input {
+        height: 2rem;
+    }
+    .feedback-submit {
+        font-size: 0.9rem;
+    }
+}

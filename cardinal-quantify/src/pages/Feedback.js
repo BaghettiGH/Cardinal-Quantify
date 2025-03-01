@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaArrowRight } from "react-icons/fa";
 import { collection, addDoc } from "firebase/firestore";
 // import { db } from "./firebase";
 import "../styles/feedback.scss";
@@ -23,7 +24,8 @@ const Feedback = () => {
         className = "feedback-input"
         />
         </div>
-        <button className = "feedback-submit">Submit</button>
+        <button className = "feedback-submit">Submit <FaArrowRight /></button>
+
       </div>
     </div>
   );
