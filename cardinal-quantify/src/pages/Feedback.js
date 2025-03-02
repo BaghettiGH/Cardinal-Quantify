@@ -2,22 +2,41 @@ import React, { useState, useEffect, use } from 'react';
 import { FaArrowRight } from "react-icons/fa";
 import { collection, addDoc } from "firebase/firestore";
 import { auth, db } from "../components/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import "../styles/feedback.scss";
 
 const Feedback = () => {
-  const [userName, setUserName] = useState('');
+  const [userDetail, setUserDetail] = useState('Anonymous');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserName(user.displayName || "Anonymous");
+  const fetchUserData = async () => {
+    auth.onAuthStateChanged(async (user) => {
+      console.log(user);
+
+      const docRef = doc(db, "Users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setUserDetail(docSnap.data());
+        console.log(docSnap.data());
       }
     });
+  };
 
-    return () => unsubscribe();
-  }, []);
+      useEffect(() => {
+        fetchUserData();
+      }, []);
+
+
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       setUserName(user.displayName || "Anonymous");
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,12 +48,12 @@ const Feedback = () => {
 
     try {
       await addDoc(collection(db, "Feedback"), {
-        name: userName,
+        name: userDetail.firstName + " " + userDetail.lastName,
         message: message,
         timestamp: new Date()
       });
 
-      console.log("Feedback submitted:", { userName, message });
+      // console.log("Feedback submitted:", { userDetail.firstName, message });
       setSubmitted(true);
       setMessage(""); 
     } catch (error) {
