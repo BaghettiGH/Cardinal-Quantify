@@ -5,15 +5,17 @@ import { FaBook } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
 import {doc, getDoc} from "firebase/firestore";
-import { toast } from 'react-toastify';
 import { auth, db } from './firebase';
+import { useNavigate } from 'react-router-dom';
+import {signOut, onAuthStateChanged} from "firebase/auth";
 // import '.styles/Navbar.scss';
 import { useLocation } from "react-router-dom";
 import "../styles/navbar.scss";
 
 const Navbar = () => { 
     const location = useLocation();
-
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
     const [closeMenu, setCloseMenu] = useState(false);
 
     const handleCloseMenu = () => {
@@ -23,31 +25,46 @@ const Navbar = () => {
     const [userDetail, setUserDetail] = useState(null);
     const fetchUserData = async () => {
         auth.onAuthStateChanged(async (user) => {
-          console.log(user);
-    
-          const docRef = doc(db, "Users", user.uid);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            setUserDetail(docSnap.data());
-            console.log(docSnap.data());
-          } else {
-            console.log("User is not logged in");
-          }
-        });
+            console.log(user);
+            if (user) {
+              const docRef = doc(db, "Users", user.uid);
+              const docSnap = await getDoc(docRef);
+              if (docSnap.exists()) {
+                setUserDetail(docSnap.data());
+                console.log(docSnap.data());
+              } else {
+                console.log("No such document!");
+              }
+            } else {
+              console.log("User is not logged in");
+              setUserDetail(null); // Reset user details when logged out
+            }
+          });
       };
+      //fetch user data
       useEffect(() => {
         fetchUserData();
       }, []);
 
+      //auth state changes
+      useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+          setUser(currentUser);
+        });
+        return () => unsubscribe(); // Cleanup listener
+      }, []);
+
       async function handleLogout(){
-        try {
-            await auth.signOut();
-            console.log("User logged out successfully");
-            window.location.href = "/login";
-        } catch (error) {
-            console.error(error.message);
-            
-        }
+        signOut(auth)
+        .then(() => {
+          console.log('User logged out successfully');
+          setUser(null);
+          setUserDetail(null); // Clear user state
+          navigate('/login'); // Navigate to login page
+        })
+        .catch((error) => {
+          console.error('Logout error:', error.message);
+        });
       }
     
 
@@ -119,8 +136,8 @@ const Navbar = () => {
                     </li>
 
                     <li onClick={handleLogout}>
-                    <a href="#"><FaSignOutAlt size="25px" className="icons" /></a>
-                        <a href="#" className="link">Signout</a>
+                    <a href="/login"><FaSignOutAlt size="25px" className="icons" /></a>
+                        <a href="/login" className="link">Signout</a>
                     </li>
                    
                 </ul>
