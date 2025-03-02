@@ -1,65 +1,59 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import Courses from "./pages/Courses";
-import CalcPage from "./pages/CalcPage";
-import Feedback from "./pages/Feedback";
-import Sidebar from "./components/Navbar";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import { auth } from "./components/firebase";
 import { Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Courses from "./pages/Courses";
+import Feedback from "./pages/Feedback";
+import CalcPage from "./pages/CalcPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const [user, setUser] = useState(null);
 
- 
-  const [user, setUser] = useState();
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
-  });
+    return unsubscribe;
+  }, []);
 
-  
+  const ProtectedRoutes = () => (
+    <>
+      <Navbar />
+      <div className="content-wrapper">
+        <Outlet />
+      </div>
+    </>
+  );
+
   return (
-   
-      <Router>
-        <div className="App">
-          <div className="auth-wrapper">
-            <div className="auth-inner">
-              
-              <Routes>
-              <Route
-                path="/"
-                element={user ? <Navigate to="/dashboard" /> : <Login />}
-              />
-                <Route path = "/login" element={<Login />} />
-                <Route path = "/signup" element={<Signup />} />
+    <Router>
+      <div className="App">
+        <Routes>
+          {/* Redirect if user is logged in */}
+          <Route path="/" element={user ? <Navigate to="/courses" /> : <Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
-                <Route 
-                element = {
-                  <>
-                   <Navbar />
-                   <Outlet />
-                  </>
-                }>
-
-<Route path = "/dashboard" element={<Sidebar />} />
-                <Route path="/courses" element={<Courses />} />
-                <Route path="/feedback" element={<Feedback />} />
-                <Route path="/course/:name" element={<CalcPage />} />
-                </Route>
-              </Routes>
-              <ToastContainer />
-            </div>
-          </div>
-        </div>
-      </Router>
-
+          {user ? (
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/feedback" element={<Feedback />} />
+              <Route path="/course/:name" element={<CalcPage />} />
+              <Route path="*" element={<Navigate to="/courses" />} />
+            </Route>
+          ) : (
+            <Route path="*" element={<Navigate to="/" />} />
+          )}
+        </Routes>
+        <ToastContainer />
+      </div>
+    </Router>
   );
 }
 
