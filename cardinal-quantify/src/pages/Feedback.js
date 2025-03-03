@@ -40,7 +40,8 @@ const Feedback = () => {
 
     try {
       await addDoc(collection(db, "Feedback"), {
-        name: userDetail.firstName + " " + userDetail.lastName,
+        firstName: userDetail.firstName,
+        lastName: userDetail.lastName,
         message: message,
         timestamp: new Date()
       });
