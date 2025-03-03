@@ -36,7 +36,7 @@ const Courses = () => {
           <li><Link to = "/estimate-grade">Estimate Grade</Link></li>
         </ul>
 
-       
+        
       </div>
       <GradeTable setFinalGrade={setFinalGrade} mode={isEstimateMode ? 'estimate' : 'compute'} />
 
