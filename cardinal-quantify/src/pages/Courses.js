@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoMdClose } from "react-icons/io";
 import '../styles/Courses.scss';
 import { Link } from "react-router-dom";
 
@@ -23,20 +24,24 @@ const Courses = () => {
   //To determine the color of the grade container
   const getGradeColor = (grade) => {
     const numericGrade = parseFloat(grade);
-    if (numericGrade >= 1 && numericGrade <= 1.99) return "#33B864";
-    if (numericGrade >= 2 && numericGrade <= 2.25) return "#9ACD32";
-    if (numericGrade >= 2.26 && numericGrade <= 2.99) return "#FFDB58";
-    if (numericGrade === 3) return "orange";
-    if (numericGrade === 0) return "grey";
-    return "red";
+    if (numericGrade >= 95) return "#39E379";  // Excellent
+    if (numericGrade >= 85) return "#CDEE4B";  // Good
+    if (numericGrade >= 70) return "#FF9600";  // Passing
+    if (numericGrade === null) return "#CDCCCC";     // No grade
+    return "#CDCCCC";  // Failing
   };
 
   // error handling if no input
   const addOrEditCourse = () => {
-    if (!newCourse.name || !newCourse.subject || !newCourse.grade) {
+    if (!newCourse.name || !newCourse.subject) {
       alert("All fields are required!");
       return;
     }
+    // const addOrEditCourse = () => {
+    //   if (!newCourse.name || !newCourse.subject || !newCourse.grade) {
+    //     alert("All fields are required!");
+    //     return;
+    //   }
   
     // Check for duplicate course name or subject (course code)
     const isDuplicate = courses.some(
@@ -80,6 +85,9 @@ const Courses = () => {
   return (
     <div className="courses-wrapper">
     {/* Running Average Section */}
+    <div className = "courses-header">
+      <h1>Courses</h1>
+    </div>
     <div className="running-average-container">
       <h2>Running Average</h2>
       <p>{getRunningAverage()}</p>
@@ -114,36 +122,8 @@ const Courses = () => {
 {showModal && (
   <div className="addEdit-container">
     <div className="addEdit-modal">
+      <div className = "modal-header">
       <h2>{editIndex !== null ? "Edit Course" : "Add Course"}</h2>
-
-      <input
-        className="course-name-input"
-        type="text"
-        placeholder="Course Name"
-        value={newCourse.name}
-        onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
-      />
-
-      <input
-        className="course-code-input"
-        type="text"
-        placeholder="Course Code"
-        value={newCourse.subject}
-        onChange={(e) => setNewCourse({ ...newCourse, subject: e.target.value })}
-      />
-
-      <input
-        className="course-grade-input"
-        type="number"
-        placeholder="Grade"
-        value={newCourse.grade}
-        onChange={(e) => setNewCourse({ ...newCourse, grade: e.target.value })}
-      />
-
-      <button className="add-edit-course" onClick={addOrEditCourse}>
-        {editIndex !== null ? "Update" : "Add"}
-      </button>
-
       <button
         className="cancel-button"
         onClick={() => {
@@ -151,9 +131,40 @@ const Courses = () => {
           setEditIndex(null);
         }}
       >
-        Cancel
+      <IoMdClose />
       </button>
+      </div>
+      <div className="modal-body">
+        <h3>Course Name</h3>
+      <input
+        className="course-name-input"
+        type="text"
+        placeholder="Add Course Name"
+        value={newCourse.name}
+        onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
+        />
 
+        <h3>Course Code</h3>
+      <input
+        className="course-code-input"
+        type="text"
+        placeholder="Add Course Code"
+        value={newCourse.subject}
+        onChange={(e) => setNewCourse({ ...newCourse, subject: e.target.value })}
+      />
+
+      {/* <input
+        className="course-grade-input"
+        type="number"
+        placeholder="Grade"
+        value={newCourse.grade}
+        onChange={(e) => setNewCourse({ ...newCourse, grade: e.target.value })}
+      /> */}
+      <div className="button-container">
+      <button className="add-edit-course" onClick={addOrEditCourse}>
+        {editIndex !== null ? "Save" : "Add"}
+      </button>
+        
       {editIndex !== null && (
         <button
           className="delete-button"
@@ -162,10 +173,12 @@ const Courses = () => {
             setShowModal(false);
           }}
         >
-          Delete Course
+          Delete
         </button>
       )}
     </div>
+  </div>
+  </div>
   </div>
       )}
     </div>

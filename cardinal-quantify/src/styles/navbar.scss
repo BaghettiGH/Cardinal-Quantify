@@ -3,15 +3,16 @@
 
 
 body {
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
     font-family: $fontFamily;
 }
 
 .sidebar {
     background-color: $Black;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 16rem;

@@ -15,7 +15,6 @@ const CalcPage = () => {
     if (finalGrade >= 85) return "#CDEE4B";
     if (finalGrade >= 70) return "#FF9600";
     return "#FF3B30";
-
   }
 
 
