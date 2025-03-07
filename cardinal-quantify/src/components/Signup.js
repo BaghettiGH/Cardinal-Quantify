@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword,sendEmailVerification,signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth, db } from './firebase';
 import {setDoc, doc} from 'firebase/firestore';
@@ -44,40 +44,52 @@ function Signup() {
       };
     
 
-    const handleRegister =async (e) => {
+      const handleRegister = async (e) => {
         e.preventDefault();
         setError("");
-
+      
         if (password !== confirmPassword) {
-        setError("Passwords do not match.");
-        return;
+          setError("Passwords do not match.");
+          return;
         }
-
+      
         if (!validatePassword(password)) {
-        return;
+          return;
         }
+      
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            const user = auth.currentUser;
-            console.log(user);
-            if(user){
-                await setDoc(doc(db, "Users", user.uid), {
-                email:user.email,
-                firstName: fname,
-                lastName: lname,
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+      
+          if (user) {
+            // Save user information to Firestore
+            await setDoc(doc(db, "Users", user.uid), {
+              email: user.email,
+              firstName: fname,
+              lastName: lname,
             });
-            }
-            console.log("User is registered successfully");
-            navigate("/login");
+      
+            // Send email verification
+            await sendEmailVerification(user);
+            console.log("Verification email sent");
+      
+            // Sign out user and then navigate to email verification
+            await signOut(auth).then(() => {
+              console.log("User signed out after registration");
+              navigate("/emailverification");
+            });
+          }
         } catch (error) {
-            console.log(error.message);
-            if (error.code === "auth/email-already-in-use") {
-                setError("Email is already in use.");
-              } else {
-                console.log(error.message);
-              }
+          console.log(error.message);
+          if (error.code === "auth/email-already-in-use") {
+            setError("Email is already in use.");
+          } else {
+            setError("An error occurred. Please try again.");
+          }
         }
-    }
+      };
+      
+
 
   return (
     <div className ='register-wrapper'>

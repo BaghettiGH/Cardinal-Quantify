@@ -1,4 +1,4 @@
-.app {
+/*.app {
   display: flex;
   height: 100vh;
 
@@ -10,4 +10,14 @@
     transition: width 0.5s;
     display: flex;
     flex-direction: column;
+  } */
+
+  .content-wrapper {
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 17rem; /* Default margin when menu is open */
+    
+  }
+ 
+  .content-wrapper.active {
+    margin-left: 60px; /* Margin when menu is closed */
   }

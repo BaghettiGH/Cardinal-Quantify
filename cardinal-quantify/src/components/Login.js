@@ -16,23 +16,30 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(""); // Clear previous errors
-
+    
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            console.log("User logged in successfully");
-            window.location.href = "/dashboard"; // Redirect after login
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+    
+            if (user.emailVerified) {
+                console.log("User logged in successfully");
+                window.location.href = "/dashboard"; // Redirect after login
+            } else {
+                setError("Please verify your email before logging in.");
+                await auth.signOut(); // Sign out unverified users immediately
+            }
         } catch (error) {
             console.log(error.code);
             setFailedAttempts(failedAttempts + 1); // Increment failed attempts
-
+    
             if (error.code === "auth/invalid-credential") {
                 setError("The username or password you typed is incorrect. Please try again.");
             } else if (error.code === "auth/user-not-found") {
                 setError("No account found with this email.");
             } else if (error.code === "auth/too-many-requests") {
-                setError("An error occured. Please try again later.")
+                setError("An error occurred. Please try again later.");
             }
-
+    
             // Automatically prompt password reset email after 3 failed attempts
             if (failedAttempts === 2) {
                 sendPasswordResetEmail(auth, email)
@@ -46,6 +53,7 @@ function Login() {
             }
         }
     };
+    
 
     return (
         <div className='login-wrapper'>

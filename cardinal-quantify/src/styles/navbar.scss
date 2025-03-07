@@ -15,7 +15,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 16rem;
+    width: 17rem;
     height: 100vh;
     transition: 0.3s all;
     z-index: 1001;
@@ -119,6 +119,7 @@ body {
         display: flex;
         align-items: center;
         margin-top: 4rem;
+        
         justify-content: flex-start;
         padding: 1rem;
 

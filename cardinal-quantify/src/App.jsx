@@ -9,11 +9,18 @@ import Signup from "./components/Signup";
 import Courses from "./pages/Courses";
 import Feedback from "./pages/Feedback";
 import CalcPage from "./pages/CalcPage";
+import EmailVerification from "./components/VerifyEmail";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [closeMenu, setCloseMenu] = useState(false);
+  
+      const handleCloseMenu = () => {
+        setCloseMenu((prev) => !prev);
+      };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -24,8 +31,8 @@ function App() {
 
   const ProtectedRoutes = () => (
     <>
-      <Navbar />
-      <div className="content-wrapper">
+     <Navbar closeMenu={closeMenu} handleCloseMenu={handleCloseMenu} />
+     <div className={`content-wrapper ${closeMenu ? "active" : ""}`}>
         <Outlet />
       </div>
     </>
@@ -39,6 +46,7 @@ function App() {
           <Route path="/" element={user ? <Navigate to="/courses" /> : <Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/emailverification" element={<EmailVerification />} />
 
           {user ? (
             <Route element={<ProtectedRoutes />}>
