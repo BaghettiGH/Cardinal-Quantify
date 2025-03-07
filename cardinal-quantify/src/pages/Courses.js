@@ -78,215 +78,95 @@ const Courses = () => {
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      {/* Running Average Section */}
-      <div className="running-average-container"
-        style={{
-          background: "linear-gradient(to right, #888, #ccc)",
-          padding: "20px",
-          borderRadius: "5px",
-          marginBottom: "20px",
-          textAlign: "center",
-          height: "200px",
-          width: "100%",
-          maxWidth: "2000px",
-          marginLeft: "100px",
-        }}
-      >
-        <h2 style={{ margin: 10, fontSize: "50px" }}>Running Average</h2>
-        <p style={{ fontSize: "40px", margin: "5px 0" }}>{getRunningAverage()}</p>
-      </div>
+    <div className="courses-wrapper">
+    {/* Running Average Section */}
+    <div className="running-average-container">
+      <h2>Running Average</h2>
+      <p>{getRunningAverage()}</p>
+    </div>
 
       {/* Courses List */}
       {courses.map((course, index) => (
-        <div className="courses-container"
-          key={index}
-          style={{
-            background: "white",
-            boxShadow: "5px 5px 10px rgba(0,0,0,0.1)",
-            padding: "15px",
-            marginBottom: "30px",
-            borderRadius: "5px",
-            position: "relative",
-            borderLeft: `15px solid ${course.color}`,
-            width: "100%",
-            maxWidth: "1990px",
-            marginLeft: "100px",
-            height: "150px",
-            zIndex: 1,
-          }}
-        >
-          <div>
-            <p style={{ margin: 0, fontSize: "20px", color: "gray" }}>{course.subject}</p>
-            
-            <Link 
-  to={`/course/${course.name}`} 
-  style={{ margin: 0, fontSize: "30px", fontWeight: "bold", textDecoration: "none", color: "inherit" }}
->
-  {course.name}
-</Link>
-          </div>
-          <span className ="grade-container"
-
-          // grade container
-            style={{
-              background: getGradeColor(course.grade),
-              color: "white",
-              padding: "10px 25px",
-              borderRadius: "20px",
-              marginLeft: "1800px",
-              fontSize: "25px",
-            }}
-          >
-            {course.grade}
-          </span>
-          <div className = "edit-button"
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              fontSize: "30px",
-              cursor: "pointer",
-            }}
-            //edit button
-          >
-            <button onClick={() => editCourse(index)}
-            className="ellipsis-button"
-            style={{
-            border: "none",
-            background: "transparent",
-            cursor: "pointer",
-            fontSize: "30px",
-            }}
-             >⋮</button>
-          </div>
-        </div>
+      <div className="course-container" key={index} style={{ borderLeft: `15px solid ${course.color}` }}>
+      <div>
+        <p className="course-subject">{course.subject}</p>
+        
+        <Link to={`/course/${course.name}`} className="course-name">
+          {course.name}
+        </Link>
+      </div>
+      
+      <span className="grade-container" style={{ background: getGradeColor(course.grade) }}>
+        {course.grade}
+      </span>
+      
+      <div className="edit-button">
+        <button onClick={() => editCourse(index)} className="ellipsis-button">⋮</button>
+      </div>
+    </div>
+    
       ))}
 
       {/* Floating Add Button */}
-      <button
-        className = "add-button"
-        onClick={() => setShowModal(true)}
-        style={{
-          position: "fixed",
-          bottom: "25px",
-          right: "30px",
-          background: "#FFCE1B",
-          border: "none",
-          padding: "25px",
-          borderRadius: "50%", 
-          fontSize: "50px",   
-          cursor: "pointer",
-          width: "70px",
-          height: "70px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        +
+      <button className="add-button" onClick={() => setShowModal(true)}>+</button>
+
+{/* Modal for Adding/Editing Course */}
+{showModal && (
+  <div className="addEdit-container">
+    <div className="addEdit-modal">
+      <h2>{editIndex !== null ? "Edit Course" : "Add Course"}</h2>
+
+      <input
+        className="course-name-input"
+        type="text"
+        placeholder="Course Name"
+        value={newCourse.name}
+        onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
+      />
+
+      <input
+        className="course-code-input"
+        type="text"
+        placeholder="Course Code"
+        value={newCourse.subject}
+        onChange={(e) => setNewCourse({ ...newCourse, subject: e.target.value })}
+      />
+
+      <input
+        className="course-grade-input"
+        type="number"
+        placeholder="Grade"
+        value={newCourse.grade}
+        onChange={(e) => setNewCourse({ ...newCourse, grade: e.target.value })}
+      />
+
+      <button className="add-edit-course" onClick={addOrEditCourse}>
+        {editIndex !== null ? "Update" : "Add"}
       </button>
 
-      {/* Modal for Adding/Editing Course */}
-      {showModal && (
-        <div className="addEdit-container"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            background: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+      <button
+        className="cancel-button"
+        onClick={() => {
+          setShowModal(false);
+          setEditIndex(null);
+        }}
+      >
+        Cancel
+      </button>
+
+      {editIndex !== null && (
+        <button
+          className="delete-button"
+          onClick={() => {
+            removeCourse(editIndex);
+            setShowModal(false);
           }}
         >
-          <div
-            style={{
-              background: "white",
-              padding: "50px",
-              borderRadius: "10px",
-              width: "600px",
-              textAlign: "center",
-            }}
-          >
-            <h2 style={{ fontSize: "24px" }}>{editIndex !== null ? "Edit Course" : "Add Course"}</h2>
-            <input
-              type="text"
-              placeholder="Course Name"
-              value={newCourse.name}
-              onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
-              style={{ width: "100%", padding: "15px", marginBottom: "10px", fontSize: "18px" }}
-            />
-            <input
-              type="text"
-              placeholder="Course Code"
-              value={newCourse.subject}
-              onChange={(e) => setNewCourse({ ...newCourse, subject: e.target.value })}
-              style={{ width: "100%", padding: "15px", marginBottom: "10px", fontSize: "18px" }}
-            />
-            <input
-              type="number"
-              placeholder="Grade"
-              value={newCourse.grade}
-              onChange={(e) => setNewCourse({ ...newCourse, grade: e.target.value })}
-              style={{ width: "100%", padding: "15px", marginBottom: "10px", fontSize: "18px" }}
-            />
-            <button onClick={addOrEditCourse} 
-            style={{
-                background: "#D3D3D3",
-                color: "black",
-                padding: "10px 15px",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-                marginTop: "10px",
-                marginRight: "10px"
-              }}>
-              {editIndex !== null ? "Update" : "Add"}
-            </button>
-            <button
-              onClick={() => {
-                setShowModal(false);
-                setEditIndex(null);
-              }}
-              style={{
-                background: "#D3D3D3",
-                color: "black",
-                padding: "10px 15px",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-                marginTop: "10px",
-                marginRight: "10px",
-              }}
-            >
-              Cancel
-            </button>
-
-            {editIndex !== null && (
-    // delete button
-  <button
-    onClick={() => {
-      removeCourse(editIndex);
-      setShowModal(false); // Close modal after deletion
-    }}
-    style={{
-      background: "red",
-      color: "white",
-      padding: "10px 15px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-      marginTop: "10px",
-    }}
-  >
-    Delete Course
-  </button>
-            )}
-          </div>
-        </div>
+          Delete Course
+        </button>
+      )}
+    </div>
+  </div>
       )}
     </div>
   );
