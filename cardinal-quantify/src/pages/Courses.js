@@ -80,7 +80,7 @@ const Courses = () => {
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       {/* Running Average Section */}
-      <div
+      <div className="running-average-container"
         style={{
           background: "linear-gradient(to right, #888, #ccc)",
           padding: "20px",
@@ -126,7 +126,7 @@ const Courses = () => {
   {course.name}
 </Link>
           </div>
-          <span
+          <span className ="grade-container"
 
           // grade container
             style={{
@@ -140,7 +140,7 @@ const Courses = () => {
           >
             {course.grade}
           </span>
-          <div
+          <div className = "edit-button"
             style={{
               position: "absolute",
               top: "10px",
@@ -150,7 +150,9 @@ const Courses = () => {
             }}
             //edit button
           >
-            <button onClick={() => editCourse(index)}style={{
+            <button onClick={() => editCourse(index)}
+            className="ellipsis-button"
+            style={{
             border: "none",
             background: "transparent",
             cursor: "pointer",
@@ -163,6 +165,7 @@ const Courses = () => {
 
       {/* Floating Add Button */}
       <button
+        className = "add-button"
         onClick={() => setShowModal(true)}
         style={{
           position: "fixed",

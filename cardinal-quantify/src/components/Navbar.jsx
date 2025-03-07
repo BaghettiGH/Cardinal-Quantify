@@ -126,18 +126,18 @@ const Navbar = () => {
             >
                 <ul>
                 
-                    <li className={location.pathname === "/courses" ? "active" : ""}>
-                    <a href="/courses"><FaBook size="25px" className="icons" /></a>
-                        <a href="/courses" className="link">Courses</a>
+                    <li className={location.pathname === "/courses" ? "active" : ""} onClick={() => navigate("/courses")}>
+                    <FaBook size="25px" className="icons" />
+                    <span className="link">Courses</span>
                     </li>
-                    <li className={location.pathname === "/feedback" ? "active" : ""}>
-                    <a href="/feedback"><MdFeedback size="25px" className="icons" /></a>
-                        <a href="/feedback" className="link">Feedback</a>
+                    <li className={location.pathname === "/feedback" ? "active" : ""} onClick={() => navigate("/feedback")}>
+                    <MdFeedback size="25px" className="icons" />
+                    <span className="link">Feedback</span>
                     </li>
 
                     <li onClick={handleLogout}>
-                    <a href="/login"><FaSignOutAlt size="25px" className="icons" /></a>
-                        <a href="/login" className="link">Signout</a>
+                    <FaSignOutAlt size="25px" className="icons" />
+                    <span className="link">Signout</span>
                     </li>
                    
                 </ul>
