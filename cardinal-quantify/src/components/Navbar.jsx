@@ -12,15 +12,11 @@ import {signOut, onAuthStateChanged} from "firebase/auth";
 import { useLocation } from "react-router-dom";
 import "../styles/navbar.scss";
 
-const Navbar = () => { 
+const Navbar = ({ closeMenu, handleCloseMenu }) => { 
     const location = useLocation();
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
-    const [closeMenu, setCloseMenu] = useState(false);
-
-    const handleCloseMenu = () => {
-        setCloseMenu(!closeMenu);
-    };
+    
 
     const [userDetail, setUserDetail] = useState(null);
     const fetchUserData = async () => {
@@ -113,7 +109,7 @@ const Navbar = () => {
                     </>
 
                 ) : (
-                    <p> Loading </p>
+                    <p> </p>
                 )}
                 
             </div>

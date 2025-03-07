@@ -1,0 +1,115 @@
+.verify-email-content-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #434343;
+    overflow-y: scroll;
+    padding: 10px; /* Padding for smaller screens */
+    margin:auto;
+}
+
+.verify-email-container {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px; /* Default padding for small screens */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-align: center;
+    max-width: 700px; /* Limit width */
+    width: 100%;
+}
+
+.header-content {
+    font-size: 30px; /* Smaller size for mobile */
+    font-weight:500;
+    margin-bottom: 10px;
+    margin-top:30px;
+}
+
+.icon-mail{
+    color:#434343;
+    padding:15px;
+    background-color: #ffc342;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.logo-app{
+   margin-top:50px;
+    width: 300px;
+}
+
+.message-content {
+    font-size: 16px; /* Smaller text on mobile */
+    margin: 10px 0;
+}
+
+.alternate-content{
+    font-size: 12px; /* Smaller text on mobile */
+    margin: 10px 0;
+    
+}
+
+.resend-link {
+    color: #4A90E2;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .resend-link:hover {
+    color: #357ABD;
+  }
+
+  .continue-to-login{
+    position:relative;
+    width: 50%;
+    height: 40px;
+    background:#434343;
+    color:white;
+    font-weight: 500;
+    margin:20px;
+
+  }
+
+  .continue-to-login:hover{
+    background:white;
+    color:#434343;
+}
+
+.continue-to-login:active{
+    background: #C473D4;
+    color:white;
+    transition:1s;
+}
+
+
+/* Larger screens (Tablets and Desktops) */
+@media (min-width: 768px) {
+    .verify-email-container {
+        padding: 50px; /* Larger padding for tablets */
+    }
+    
+    .header-content {
+        font-size: 40px; /* Larger text */
+    }
+
+    .message-content{
+        font-size: 16px;
+    }
+    .alternate-content{
+        font-size: 14px;
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1200px) {
+    .verify-email-container {
+        padding: 70px; /* Even larger padding for desktops */
+    }
+}
