@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import '../styles/Courses.scss';
 import { Link } from "react-router-dom";
-
-
+import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { db, auth } from  "../components/firebase";
 //For random border color sa side ng course container
 const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
@@ -13,6 +13,18 @@ const Courses = () => {
   const [showModal, setShowModal] = useState(false);
   const [newCourse, setNewCourse] = useState({ name: "", subject: "", grade: "" });
   const [editIndex, setEditIndex] = useState(null);
+  const userCoursesCollection = collection(db, "Users", auth.currentUser.uid, "courses");
+  
+  useEffect(() =>{
+    
+    fetchCourses();
+  }, []);
+  const fetchCourses = async () => {
+    if (!auth.currentUser) return;
+    
+    const snapshot = await getDocs(userCoursesCollection);
+    setCourses(snapshot.docs.map(doc => ({id: doc.id, ...doc.data() })))
+  };
 
   //To determine running ave
   const getRunningAverage = () => {
@@ -32,7 +44,8 @@ const Courses = () => {
   };
 
   // error handling if no input
-  const addOrEditCourse = () => {
+  const addOrEditCourse = async () => {
+    if (!auth.currentUser) return;
     if (!newCourse.name || !newCourse.subject) {
       alert("All fields are required!");
       return;
@@ -42,13 +55,13 @@ const Courses = () => {
     //     alert("All fields are required!");
     //     return;
     //   }
+
   
     // Check for duplicate course name or subject (course code)
-    const isDuplicate = courses.some(
-      (course, index) =>
+    const isDuplicate = courses.some(course =>
         (course.name.toLowerCase() === newCourse.name.toLowerCase() || 
          course.subject.toLowerCase() === newCourse.subject.toLowerCase()) &&
-        index !== editIndex // Allow editing the same course
+        course.id !== editIndex // Allow editing the same course
     );
   
     if (isDuplicate) {
@@ -56,29 +69,32 @@ const Courses = () => {
       return;
     }
   
-    if (editIndex !== null) {
+    if (editIndex) {
       // Editing an existing course
-      const updatedCourses = [...courses];
-      updatedCourses[editIndex] = { ...newCourse, color: updatedCourses[editIndex].color }; // Keep original color
-      setCourses(updatedCourses);
+      const courseRef = doc(db, "Users", auth.currentUser.uid, "courses", editIndex);
+      await updateDoc(courseRef, newCourse);
     } else {
       // Adding new course with a random color
-      setCourses([...courses, { ...newCourse, color: getRandomColor() }]);
+      await addDoc(userCoursesCollection, {...newCourse, color:getRandomColor()});
     }
   
     setNewCourse({ name: "", subject: "", grade: "" });
     setShowModal(false);
     setEditIndex(null);
+    fetchCourses();
   };
   
 
-  const removeCourse = (index) => {
-    setCourses(courses.filter((_, i) => i !== index));
+  const removeCourse = async (id) => {
+    if (!auth.currentUser) return;
+
+    await deleteDoc(doc(db, "Users",auth.currentUser.uid, "courses", id));
+    fetchCourses();
   };
 
-  const editCourse = (index) => {
-    setNewCourse(courses[index]);
-    setEditIndex(index);
+  const editCourse = (course) => {
+    setNewCourse(course);
+    setEditIndex(course.id);
     setShowModal(true);
   };
 
@@ -94,8 +110,8 @@ const Courses = () => {
     </div>
 
       {/* Courses List */}
-      {courses.map((course, index) => (
-      <div className="course-container" key={index} style={{ borderLeft: `15px solid ${course.color}` }}>
+      {courses.map((course) => (
+      <div className="course-container" key={course.id} style={{ borderLeft: `15px solid ${course.color}` }}>
       <div>
         <p className="course-subject">{course.subject}</p>
         
@@ -109,7 +125,7 @@ const Courses = () => {
       </span>
       
       <div className="edit-button">
-        <button onClick={() => editCourse(index)} className="ellipsis-button">⋮</button>
+        <button onClick={() => editCourse(course)} className="ellipsis-button">⋮</button>
       </div>
     </div>
     
@@ -128,7 +144,6 @@ const Courses = () => {
         className="cancel-button"
         onClick={() => {
           setShowModal(false);
-          setEditIndex(null);
         }}
       >
       <IoMdClose />
