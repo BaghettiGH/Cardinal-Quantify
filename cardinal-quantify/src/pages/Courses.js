@@ -28,10 +28,19 @@ const Courses = () => {
 
   //To determine running ave
   const getRunningAverage = () => {
-    if (courses.length === 0) return "N/A"; // If no grades yet
+    if (courses.length === 0) return null; // If no grades yet
     const total = courses.reduce((sum, course) => sum + Number(course.grade), 0);
-    return (total / courses.length).toFixed(2); // Average with 2 decimal places
+    return total / courses.length; // Average with 2 decimal places
   };  
+
+
+  const getAverageColor = (average) => {
+    if (average === null) return "linear-gradient(to right, #888, #ccc)"; // Default
+    if (average >= 95) return "linear-gradient(to right, #39E379, #6AEF9D)"; // Excellent
+    if (average >= 85) return "linear-gradient(to right, #CDEE4B, #E4F76A)"; // Good
+    if (average >= 70) return "linear-gradient(to right, #FF9600, #FFA733)"; // Passing
+    return "linear-gradient(to right, #CDCCCC, #D3D3D3)"; // Failing
+  };
 
   //To determine the color of the grade container
   const getGradeColor = (grade) => {
@@ -106,7 +115,7 @@ const Courses = () => {
     </div>
     <div className="running-average-container">
       <h2>Running Average</h2>
-      <p>{getRunningAverage()}</p>
+      <p>{getRunningAverage() !== null ? getRunningAverage().toFixed(2) : "N/A"}</p>
     </div>
 
       {/* Courses List */}

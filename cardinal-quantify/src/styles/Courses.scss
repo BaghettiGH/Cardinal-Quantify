@@ -69,7 +69,7 @@
       margin: 0;
       font-size: 20px;
       color: gray;
-    }
+    } 
   
     .course-name {
       margin: 0;
@@ -107,6 +107,12 @@
         font-size: 30px;
       }
     }
+  }
+
+  .course-container:hover{
+    transform: scale(1.02);
+    transition: 0.2s transform ease-in-out;
+
   }
 
   .add-button {
