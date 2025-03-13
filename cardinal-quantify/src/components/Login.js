@@ -32,7 +32,7 @@ function Login() {
             console.log(error.code);
             setFailedAttempts(failedAttempts + 1); // Increment failed attempts
     
-            if (error.code === "auth/invalid-credential") {
+            if (error.code === "auth/invalid-credential" || error.code === "auth/invalid-email") {
                 setError("The username or password you typed is incorrect. Please try again.");
             } else if (error.code === "auth/user-not-found") {
                 setError("No account found with this email.");
