@@ -3,8 +3,10 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import { auth } from "./components/firebase";
 import { Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import Login from "./components/Login";
+import {SidebarProvider} from "./components/navbar/NavBarContext";
+import {useSidebar} from "./components/navbar/NavBarContext";
 import Signup from "./components/Signup";
 import Courses from "./pages/Courses";
 import Feedback from "./pages/Feedback";
@@ -16,11 +18,11 @@ import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [closeMenu, setCloseMenu] = useState(false);
+
+ 
+
   
-      const handleCloseMenu = () => {
-        setCloseMenu((prev) => !prev);
-      };
+      
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -29,16 +31,21 @@ function App() {
     return unsubscribe;
   }, []);
 
-  const ProtectedRoutes = () => (
-    <>
-     <Navbar closeMenu={closeMenu} handleCloseMenu={handleCloseMenu} />
-     <div className={`content-wrapper ${closeMenu ? "active" : ""}`}>
-        <Outlet />
-      </div>
-    </>
-  );
+  const ProtectedRoutes = () => {
+    const { closeMenu } = useSidebar(); // Get sidebar state
+  
+    return (
+      <>
+        <Navbar />
+        <div className={`content-wrapper ${closeMenu ? "shifted" : ""}`}>
+          <Outlet />
+        </div>
+      </>
+    );
+  };
 
   return (
+    <SidebarProvider>
     <Router>
       <div className="App">
         <Routes>
@@ -62,6 +69,7 @@ function App() {
         <ToastContainer />
       </div>
     </Router>
+    </SidebarProvider>
   );
 }
 
