@@ -1,22 +1,25 @@
 import React,  { useEffect, useState } from 'react';
-import Logo from '../Assets/Logo.svg';
+import Logo from '../../Assets/Logo.svg';
 import { FaRegUser } from "react-icons/fa";
 import { FaBook } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
 import {doc, getDoc} from "firebase/firestore";
-import { auth, db } from './firebase';
+import { auth, db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import {signOut, onAuthStateChanged} from "firebase/auth";
+import { useSidebar } from "./NavBarContext";
 // import '.styles/Navbar.scss';
 import { useLocation } from "react-router-dom";
-import "../styles/navbar.scss";
+import "../../styles/navbar.scss";
 
-const Navbar = ({ closeMenu, handleCloseMenu }) => { 
+const Navbar = () => { 
     const location = useLocation();
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
-    
+    const { closeMenu, handleCloseMenu } = useSidebar(); 
+   
+
 
     const [userDetail, setUserDetail] = useState(null);
     const fetchUserData = async () => {
@@ -86,9 +89,7 @@ const Navbar = ({ closeMenu, handleCloseMenu }) => {
             >
                 <div
                     className="burgerTrigger"
-                    onClick={() => {
-                        handleCloseMenu();
-                    }}
+                    onClick={handleCloseMenu}
                 ></div>
                 <div className="burgerMenu"></div>
             </div>
