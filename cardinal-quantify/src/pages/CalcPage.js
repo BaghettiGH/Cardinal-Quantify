@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/calcpage.scss';
 import GradeTable from '../components/courses/GradeTable';
 import { NavLink } from 'react-router-dom';
 import { useParams } from "react-router-dom";
+import { db, auth } from "../components/firebase";
+import { collection, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
   
 const CalcPage = () => {
   console.log("Courses component loaded");
   const { name } = useParams();
   const [finalGrade, setFinalGrade] = useState(null);
+
+  useEffect(() =>{
+    if (finalGrade !== null){
+      updateGradeInFirestore(finalGrade);
+    }
+  }, [finalGrade]);
+
+  const updateGradeInFirestore = async (grade) => {
+    if (!auth.currentUser) return;
+
+    const coursesCollection = collection(db, "Users", auth.currentUser.uid, "courses");
+    const q = query(coursesCollection, where("name", "==", name));
+
+    const snapshot = await getDocs(q);
+    if(!snapshot.empty){
+      const CourseDoc = snapshot.docs[0];
+      const courseRef = doc(db, "Users", auth.currentUser.uid, "courses", CourseDoc.id);
+
+      await updateDoc(courseRef,{ grade: grade.toFixed(2) });
+
+    }
+
+  };
 
   const getBackgroundColor = () =>{
     if (finalGrade === null) return "#CDCCCC";

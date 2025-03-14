@@ -28,17 +28,19 @@ const Courses = () => {
 
   //To determine running ave
   const getRunningAverage = () => {
-    if (courses.length === 0) return null; // If no grades yet
-    const total = courses.reduce((sum, course) => sum + Number(course.grade), 0);
-    return total / courses.length; // Average with 2 decimal places
+
+    const validCourses = courses.filter(course => course.grade !== "" && !isNaN(course.grade));    
+    if (validCourses.length === 0) return 0; // If no grades yet
+    const total = validCourses.reduce((sum, course) => sum + Number(course.grade), 0);
+    return total / validCourses.length; // Average with 2 decimal places
   };  
 
 
   const getAverageColor = (average) => {
-    if (average === null) return "linear-gradient(to right, #888, #ccc)"; // Default
-    if (average >= 95) return "linear-gradient(to right, #39E379, #6AEF9D)"; // Excellent
-    if (average >= 85) return "linear-gradient(to right, #CDEE4B, #E4F76A)"; // Good
-    if (average >= 70) return "linear-gradient(to right, #FF9600, #FFA733)"; // Passing
+    if (average === 0) return "linear-gradient(to right, #FF3B30,rgb(245, 139, 134))"; // Default
+    if (average >= 95) return "linear-gradient(to right, #39E379,rgb(173, 240, 199))"; // Excellent
+    if (average >= 85) return "linear-gradient(to right, #CDEE4B,rgb(222, 235, 143))"; // Good
+    if (average >= 70) return "linear-gradient(to right, #FF9600,rgb(247, 192, 121))"; // Passing
     return "linear-gradient(to right, #CDCCCC, #D3D3D3)"; // Failing
   };
 
@@ -48,7 +50,7 @@ const Courses = () => {
     if (numericGrade >= 95) return "#39E379";  // Excellent
     if (numericGrade >= 85) return "#CDEE4B";  // Good
     if (numericGrade >= 70) return "#FF9600";  // Passing
-    if (numericGrade === null) return "#CDCCCC";     // No grade
+    if (numericGrade >= 0) return "#FF3B30";     // No grade
     return "#CDCCCC";  // Failing
   };
 
@@ -113,7 +115,9 @@ const Courses = () => {
     <div className = "courses-header">
       <h1>Courses</h1>
     </div>
-    <div className="running-average-container">
+    <div className="running-average-container"
+          style = {{ background: getAverageColor(getRunningAverage()) }}
+          >
       <h2>Running Average</h2>
       <p>{getRunningAverage() !== null ? getRunningAverage().toFixed(2) : "N/A"}</p>
     </div>
