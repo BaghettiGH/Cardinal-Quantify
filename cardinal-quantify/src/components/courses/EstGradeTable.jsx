@@ -6,9 +6,9 @@ import EstimateButton from './EstimateButton';
 
 function EstGradeTable({setFinalGrade, desiredGrade}) {
     const [assignments, setAssignments] = useState([
-        {id: 1, name: "Assignment 1", grade: "", totalGrade: "100", weight: ""},
-        {id: 2, name: "Assignment 2", grade: "", totalGrade: "100", weight: ""},
-        {id: 3, name: "Assignment 3", grade: "", totalGrade: "100", weight: ""}
+        {id: 1, name: "Assignment 1", grade: "", totalGrade: "100", weight: "", neededGrade:""},
+        {id: 2, name: "Assignment 2", grade: "", totalGrade: "100", weight: "", neededGrade:""},
+        {id: 3, name: "Assignment 3", grade: "", totalGrade: "100", weight: "", neededGrade:""}
     ]);
 
     const addRow = () =>{
@@ -17,7 +17,7 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
             {
                 id: assignments.length + 1, 
                 name: "Assignment " + (assignments.length + 1),
-                 grade: "", totalGrade: "100", weight: ""}
+                grade: "", totalGrade: "100", weight: "",neededGrade:""}
         ])
     };
 
@@ -25,7 +25,16 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
         setAssignments(assignments.map(item => 
             (item.id === id ? {...item, [field]: value} : item)
         ));
+
     };
+    const updateNeededGrades = (neededGrades) =>{
+        setAssignments(assignments.map(assignment => ({
+            ...assignment,
+            neededGrade: neededGrades[assignment.id] ||""
+
+        })));
+    };
+
     const getBackgroundColor = (assignment) =>{
         if (!assignment || assignment.grade === "" || !assignment.totalGrade === "") return "#CDCCCC";
         const grade = parseFloat(assignment.grade) || 0;
@@ -46,7 +55,11 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
                     <th>Item Name</th>
                     <th>Grade</th>
                     <th>Weight</th>
-                    <th><EstimateButton assignments={assignments} desiredGrade={desiredGrade}/></th>
+                    <th><EstimateButton 
+                    assignments={assignments} 
+                    desiredGrade={desiredGrade}
+                    setNeededGrades={updateNeededGrades}/>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -96,6 +109,9 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
                                 placeholder=" "
                             />
                             </div>
+                        </td>
+                        <td>
+                           {assignment.neededGrade ? assignment.neededGrade: "-"}
                         </td>
                     </tr>
             ))}

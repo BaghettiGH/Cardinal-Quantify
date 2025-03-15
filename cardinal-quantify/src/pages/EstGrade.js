@@ -91,7 +91,7 @@ const EstGradePg =() =>{
           />
         </div>
       </div>
-      <EstGradeTable/>
+      <EstGradeTable desiredGrade={desiredGrade}/>
     </div>
     </div>
   );
