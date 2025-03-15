@@ -4,6 +4,7 @@ import GradeTable from '../components/courses/GradeTable';
 import { NavLink, useParams } from 'react-router-dom';
 import { db, auth } from "../components/firebase";
 import { collection, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
+import EstGradeTable from '../components/courses/EstGradeTable';
 
 
 const EstGradePg =() =>{
@@ -90,7 +91,7 @@ const EstGradePg =() =>{
           />
         </div>
       </div>
-      <GradeTable />
+      <EstGradeTable/>
     </div>
     </div>
   );
