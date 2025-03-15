@@ -57,7 +57,7 @@ const CalcPage = () => {
           <li><NavLink to = "/compute-grade" activeClassName="active-link">Compute Grade</NavLink></li>
           </div>
           <div className = "estimate-grade-div">
-          <li><NavLink to = "/estimate-grade" activeClassName="active-link">Estimate Grade</NavLink></li>
+          <li><NavLink to = {`/course/${name}/estimate-grade`} activeClassName="active-link">Estimate Grade</NavLink></li>
           </div>
         </ul>
       </div>

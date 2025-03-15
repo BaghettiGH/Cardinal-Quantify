@@ -11,6 +11,7 @@ import Signup from "./components/Signup";
 import Courses from "./pages/Courses";
 import Feedback from "./pages/Feedback";
 import CalcPage from "./pages/CalcPage";
+import EstGrade from "./pages/EstGrade";
 import EmailVerification from "./components/VerifyEmail";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -60,6 +61,7 @@ function App() {
               <Route path="/courses" element={<Courses />} />
               <Route path="/feedback" element={<Feedback />} />
               <Route path="/course/:name" element={<CalcPage />} />
+              <Route path="/course/:name/estimate-grade" element={<EstGrade /> }/>
               <Route path="*" element={<Navigate to="/courses" />} />
             </Route>
           ) : (
