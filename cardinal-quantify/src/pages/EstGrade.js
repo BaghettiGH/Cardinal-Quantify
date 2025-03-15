@@ -10,6 +10,7 @@ const EstGradePg =() =>{
 
   const { name } = useParams();
   const [finalGrade, setFinalGrade] = useState(null);
+  const [desiredGrade, setDesiredGrade] = useState("");
 
     useEffect(() =>{
       if (finalGrade !== null){
@@ -36,12 +37,30 @@ const EstGradePg =() =>{
 
 
 
-  const getBackgroundColor = () =>{
-    if (finalGrade === null) return "#CDCCCC";
-    if (finalGrade >= 95) return "#39E379";
-    if (finalGrade >= 85) return "#CDEE4B";
-    if (finalGrade >= 70) return "#FF9600";
+  const getBackgroundColor = (grade) =>{
+    if (grade === ""|| isNaN(parseFloat(grade))) return "#CDCCCC";
+    const numGrade = parseFloat(grade);
+    if (numGrade >= 95) return "#39E379";
+    if (numGrade >= 85) return "#CDEE4B";
+    if (numGrade >= 70) return "#FF9600";
     return "#FF3B30";
+  }
+
+  const handleInputChange = (e) =>{
+    let value = e.target.value.replace("%","").trim();
+    if (value === ""){
+      setDesiredGrade("");
+      return;
+    }
+  
+
+  let numValue = parseFloat(value);
+  if (isNaN(numValue)) return;
+  if (numValue < 0) numValue =0;
+  if (numValue > 100) numValue = 100;
+
+  setDesiredGrade(numValue.toString());
+
   }
 
 
@@ -50,8 +69,6 @@ const EstGradePg =() =>{
       <div className="main-content">
       <div className = "header">
       <h1>{ name }</h1>
-      {/* <div className = "final-grade" style = {{ backgroundColor: getBackgroundColor() }}>
-        <h3>{finalGrade !== null ? finalGrade.toFixed(2) : "--"}</h3></div> */}
       </div>      
       <div className = "task-bar">
         <ul className = "task-list">
@@ -64,9 +81,12 @@ const EstGradePg =() =>{
         </ul>
       </div>
       <div className ="desired-grade-div">
-        {/* <h2>Desired Grade:</h2> */}
-        <div className="desired-grade-container" style = {{ backgroundColor: getBackgroundColor() }}>
-          <input className = "desired-grade-input" 
+        <h2>Desired Grade:</h2>
+        <div className="desired-grade-container" style = {{ backgroundColor: getBackgroundColor(desiredGrade) }}>
+          <input className = "desired-grade-input"
+                 type="text"
+                 value = {desiredGrade !== "" ? desiredGrade + "%":""}
+                 onChange={handleInputChange}
           />
         </div>
       </div>
