@@ -60,7 +60,8 @@ function App() {
             <Route element={<ProtectedRoutes />}>
               <Route path="/courses" element={<Courses />} />
               <Route path="/feedback" element={<Feedback />} />
-              <Route path="/course/:name" element={<CalcPage />} />
+              <Route path="/course/:name/" element={<CalcPage />} />
+              <Route path="/course/:name/compute-grade" element={<CalcPage />}/>
               <Route path="/course/:name/estimate-grade" element={<EstGrade /> }/>
               <Route path="*" element={<Navigate to="/courses" />} />
             </Route>
