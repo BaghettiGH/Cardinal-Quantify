@@ -36,10 +36,10 @@ const CalcPage = () => {
 
   const getBackgroundColor = () =>{
     if (finalGrade === null) return "#CDCCCC";
-    if (finalGrade >= 95) return "#39E379";
-    if (finalGrade >= 85) return "#CDEE4B";
-    if (finalGrade >= 70) return "#FF9600";
-    return "#FF3B30";
+    if (finalGrade <= 1.50) return "#39E379"; // Green
+    if (finalGrade <= 2.25) return "#CDEE4B"; // Lime Green
+    if (finalGrade <= 3.00) return "#FFE300"; // Yellow
+    return "#FF3B30"; // Red for failing grades
   }
 
 
