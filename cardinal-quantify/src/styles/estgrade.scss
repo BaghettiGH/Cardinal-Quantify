@@ -265,3 +265,22 @@ input[type="number"]::-webkit-inner-spin-button {
         width:5rem;
     }
 }
+
+.needed-score-container{
+  font-family: "Inter", serif;
+  font-weight: bold;
+  background-color: #CDCCCC;
+  width:5.5rem;
+  height:2rem;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 200px;
+  
+
+}
+.needed-score-div{
+display:flex;
+justify-content: center;
+align-items: center;
+}

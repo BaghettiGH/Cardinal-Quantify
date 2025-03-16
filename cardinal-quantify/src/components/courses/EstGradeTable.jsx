@@ -22,6 +22,7 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
     };
 
     const updateAssignment = (id, field, value) => {
+        
         setAssignments(assignments.map(item => 
             (item.id === id ? {...item, [field]: value} : item)
         ));
@@ -46,6 +47,19 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
         return "#FF3B30";
         };
 
+    const getNeededScoreBackground = (assignment) =>{
+        if (!assignment || !assignment.neededGrade || !assignment.totalGrade) return "#CDCCCC";
+        
+        const neededGrade = parseFloat(assignment.neededGrade) || 0;
+        const totalGrade = parseFloat(assignment.totalGrade) || 1;
+        const percentage = (neededGrade / totalGrade) * 100;
+
+        if(percentage >= 95) return "#39E379";
+        if(percentage >= 85) return "#CDEE4B";
+        if(percentage >=70) return "#FF9600";
+        return "#FF3B30";
+
+    };
     
     return(
         <div className = "grade-table">
@@ -111,7 +125,23 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
                             </div>
                         </td>
                         <td>
-                           {assignment.neededGrade ? assignment.neededGrade: "-"}
+                           {/* {assignment.neededGrade ? assignment.neededGrade: "-"} */}
+                            <div className = "needed-score-div">
+                                <div className ="needed-score-container" style={{ backgroundColor:getNeededScoreBackground(assignment) }}>
+                                {assignment.neededGrade && assignment.totalGrade ? (
+                                    <>
+                                        {parseFloat(assignment.neededGrade)%1 ===0
+                                            ? (parseFloat(assignment.neededGrade)/100 * parseFloat(assignment.totalGrade))
+                                            : (parseFloat(assignment.neededGrade) / 100 * parseFloat(assignment.totalGrade)).toFixed(2)}
+                                        <b>/</b>
+                                        {assignment.totalGrade} 
+                                    
+                                    </>
+                                ): "--"}
+
+                                </div>  
+                            </div>
+
                         </td>
                     </tr>
             ))}
