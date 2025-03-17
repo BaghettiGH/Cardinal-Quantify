@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import '../styles/Courses.scss';
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { db, auth } from  "../components/firebase";
+<<<<<<< HEAD
+=======
+
+
+
+//For random border color sa side ng course container
+>>>>>>> convertedGWA
 const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 const Courses = () => {
   //const navigate = useNavigate(); 
   const [courses, setCourses] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [newCourse, setNewCourse] = useState({ name: "", subject: "", grade: "" });
+  const [newCourse, setNewCourse] = useState({ name: "", subject: "", grade: "", unit: "" });
   const [editIndex, setEditIndex] = useState(null);
   const userCoursesCollection = collection(db, "Users", auth.currentUser.uid, "courses");
   
@@ -26,29 +33,57 @@ const Courses = () => {
   };
 
   //To determine running ave
-  const getRunningAverage = () => {
 
-    const validCourses = courses.filter(course => course.grade !== "" && !isNaN(course.grade));    
+  /* const getRunningAverage = () => {
+
+   const validCourses = courses.filter(course => course.grade !== "" && !isNaN(course.grade));    
     if (validCourses.length === 0) return 0; // If no grades yet
     const total = validCourses.reduce((sum, course) => sum + Number(course.grade), 0);
     return total / validCourses.length; // Average with 2 decimal places
-  };  
+  };  */
+
+
+  const getRunningAverage = () => {
+    // Filter courses with valid grades and units
+    const validCourses = courses.filter(course => 
+        course.grade !== "" && !isNaN(course.grade) && 
+        course.unit !== "" && !isNaN(course.unit)
+    );
+
+    if (validCourses.length === 0) return "0.00"; // No valid grades
+
+    // Compute total weighted grades and total units
+    const totalWeightedGrade = validCourses.reduce((sum, course) => 
+        sum + (parseFloat(course.grade) * parseFloat(course.unit)), 0
+    );
+
+    const totalUnits = validCourses.reduce((sum, course) => 
+        sum + parseFloat(course.unit), 0
+    );
+
+    return totalUnits > 0 ? (totalWeightedGrade / totalUnits).toFixed(2) : "0.00"; // Final weighted average
+    
+};
+
+
+
 
 
   const getAverageColor = (average) => {
-    if (average === 0) return "linear-gradient(to right, #FF3B30,rgb(245, 139, 134))"; // Default
-    if (average >= 95) return "linear-gradient(to right, #39E379,rgb(173, 240, 199))"; // Excellent
-    if (average >= 85) return "linear-gradient(to right, #CDEE4B,rgb(222, 235, 143))"; // Good
-    if (average >= 70) return "linear-gradient(to right, #FF9600,rgb(247, 192, 121))"; // Passing
+    if (average === 0) return "linear-gradient(to right,rgb(128, 128, 128),rgb(230, 230, 230))"; // Default
+    if (average <= 1.50) return "linear-gradient(to right, #39E379,rgb(173, 240, 199))"; // Excellent
+    if (average <= 2.25) return "linear-gradient(to right, #CDEE4B,rgb(222, 235, 143))"; // Good
+    if (average <= 3.00) return "linear-gradient(to right, #FFE300,rgb(255, 250, 156))"; // Passing
+    if (average <= 5.00) return "linear-gradient(to right, #FF3B30,rgb(245, 139, 134))"; // Fail
     return "linear-gradient(to right, #CDCCCC, #D3D3D3)"; // Failing
   };
 
   //To determine the color of the grade container
   const getGradeColor = (grade) => {
     const numericGrade = parseFloat(grade);
-    if (numericGrade >= 95) return "#39E379";  // Excellent
-    if (numericGrade >= 85) return "#CDEE4B";  // Good
-    if (numericGrade >= 70) return "#FF9600";  // Passing
+    if (numericGrade <= 1.50) return "#39E379";  // Excellent
+    if (numericGrade <= 2.25) return "#CDEE4B";  // Good
+    if (numericGrade <= 3.00) return "#FFE300";  // Passing
     if (numericGrade >= 0) return "#FF3B30";     // No grade
     return "#CDCCCC";  // Failing
   };
@@ -78,6 +113,14 @@ const Courses = () => {
       alert("A course with the same name or code already exists!");
       return;
     }
+
+    const validUnits = ["1.0", "1.25", "1.50", "1.75", "2.0", "2.25", "2.5", "2.75", "3.0"];
+
+    if (!validUnits.includes(newCourse.unit)) {
+        alert("Invalid unit! Please enter again");
+        setNewCourse({ ...newCourse, unit: "" }); // Reset invalid input
+        return;
+    }
   
     if (editIndex) {
       // Editing an existing course
@@ -88,7 +131,7 @@ const Courses = () => {
       await addDoc(userCoursesCollection, {...newCourse, color:getRandomColor()});
     }
   
-    setNewCourse({ name: "", subject: "", grade: "" });
+    setNewCourse({ name: "", subject: "", grade: "", unit:"" });
     setShowModal(false);
     setEditIndex(null);
     fetchCourses();
@@ -108,17 +151,23 @@ const Courses = () => {
     setShowModal(true);
   };
 
+ 
+
   return (
+
+    
     <div className="courses-wrapper">
     {/* Running Average Section */}
     <div className = "courses-header">
       <h1>Courses</h1>
+      
     </div>
     <div className="running-average-container"
           style = {{ background: getAverageColor(getRunningAverage()) }}
           >
       <h2>Running Average</h2>
-      <p>{getRunningAverage() !== null ? getRunningAverage().toFixed(2) : "N/A"}</p>
+      <p>{getRunningAverage() !== null ? getRunningAverage() : "N/A"}</p>
+
     </div>
 
       {/* Courses List */}
@@ -179,6 +228,16 @@ const Courses = () => {
         value={newCourse.subject}
         onChange={(e) => setNewCourse({ ...newCourse, subject: e.target.value })}
       />
+
+    <h3>Unit</h3>
+      <input
+        className="unit-input"
+        type="number"
+        placeholder="Add Unit"
+        value={newCourse.unit}
+        onChange={(e) => setNewCourse({ ...newCourse, unit: e.target.value })}
+      />
+
 
       {/* <input
         className="course-grade-input"
