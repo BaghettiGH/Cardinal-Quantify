@@ -1,15 +1,81 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../../styles/calcpage.scss";
 import CalculateButton from './CalculateButton';
-
+import { db, auth } from "../firebase";
+import { doc, getDoc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { useParams } from "react-router-dom";
 
 
 function GradeTable({setFinalGrade}) {
-    const [assignments, setAssignments] = useState([
-        {id: 1, name: "Assignment 1", grade: "", totalGrade: "", weight: ""},
-        {id: 2, name: "Assignment 2", grade: "", totalGrade: "", weight: ""},
-        {id: 3, name: "Assignment 3", grade: "", totalGrade: "", weight: ""}
-    ]);
+    const {name} = useParams();
+    const [assignments, setAssignments] = useState([]);
+    const [courseId, setCourseId] = useState(null);
+
+
+    useEffect(()=>{
+        const fetchCourseId = async () =>{
+            if (!auth.currentUser) return;
+            const userId = auth.currentUser.uid;
+            const coursesRef = collection(db, "Users", userId, "courses");
+            const q = query(coursesRef, where("name","==", name));
+
+            try{
+                const querySnapshot = await getDocs(q);
+                if(!querySnapshot.empty){
+                    const courseDoc = querySnapshot.docs[0];
+                    setCourseId(courseDoc.id);
+                }else{
+                    console.log("Course not found");
+                }
+
+            } catch(error){
+                console.error("Error fetching course ID:", error);
+            }
+        };
+        fetchCourseId();
+    }, [name]);
+
+    useEffect(() =>{
+        const fetchAssignments = async () =>{
+            if (!auth.currentUser || !courseId) return;
+            const userId = auth.currentUser.uid;
+            const courseRef = doc(db, "Users", userId,"courses", courseId);
+
+            try{
+                const docSnap = await getDoc(courseRef);
+                if (docSnap.exists()){
+                    const data = docSnap.data();
+                    setAssignments(data.assignments || []);
+                    setFinalGrade(data.finalGrade || null);
+                } else {
+                    console.log("No existing assignments for this course");
+                }
+            } catch (error){
+                console.error ("Error loading assignments:", error);
+            }
+        };
+
+        fetchAssignments();
+        
+    }, [courseId, setFinalGrade]);
+
+
+    useEffect(() =>{
+        const saveAssignments = async () => {
+            if(!auth.currentUser || assignments.length === 0 || !courseId) return;
+            const userId = auth.currentUser.uid;
+            const courseRef = doc(db, "Users", userId,"courses", courseId);
+
+            try {
+                await setDoc(courseRef, { assignments }, { merge: true });
+                console.log("Assignments auto-saved!");
+            } catch (error) {
+                console.error("Error saving assignments:", error);
+            }
+        };
+        saveAssignments();
+        
+    },[assignments,courseId]);
 
     const addRow = () =>{
         setAssignments([
@@ -20,7 +86,7 @@ function GradeTable({setFinalGrade}) {
 
     const updateAssignment = (id, field, value) => {
         setAssignments(assignments.map(item => 
-            (item.id === id ? {...item, [field]: value} : item)
+            item.id === id ? {...item, [field]: value} : item
         ));
     };
 
