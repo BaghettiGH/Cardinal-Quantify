@@ -4,13 +4,10 @@ import '../styles/Courses.scss';
 import { Link, useNavigate} from "react-router-dom";
 import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { db, auth } from  "../components/firebase";
-<<<<<<< HEAD
-=======
 
 
 
 //For random border color sa side ng course container
->>>>>>> convertedGWA
 const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 const Courses = () => {
