@@ -41,9 +41,9 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
         const grade = parseFloat(assignment.grade) || 0;
         const totalGrade = parseFloat(assignment.totalGrade) || 1;
         const percentage = (grade/totalGrade)*100;
-        if (percentage >= 95) return "#39E379";
-        if (percentage >= 85) return "#CDEE4B";
-        if (percentage >= 70) return "#FF9600";
+        if (percentage >= 90) return "#39E379";
+        if (percentage >= 80) return "#CDEE4B";
+        if (percentage >= 70) return "#FFEB00";
         return "#FF3B30";
         };
 
@@ -54,9 +54,9 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
         const totalGrade = parseFloat(assignment.totalGrade) || 1;
         const percentage = (neededGrade / totalGrade) * 100;
 
-        if(percentage >= 95) return "#39E379";
-        if(percentage >= 85) return "#CDEE4B";
-        if(percentage >=70) return "#FF9600";
+        if(percentage >= 90) return "#39E379";
+        if(percentage >= 80) return "#CDEE4B";
+        if(percentage >=70) return "#FFEB00";
         return "#FF3B30";
 
     };
@@ -129,15 +129,14 @@ function EstGradeTable({setFinalGrade, desiredGrade}) {
                             <div className = "needed-score-div">
                                 <div className ="needed-score-container" style={{ backgroundColor:getNeededScoreBackground(assignment) }}>
                                 {assignment.neededGrade && assignment.totalGrade ? (
-                                    <>
-                                        {parseFloat(assignment.neededGrade)%1 ===0
-                                            ? (parseFloat(assignment.neededGrade)/100 * parseFloat(assignment.totalGrade))
-                                            : (parseFloat(assignment.neededGrade) / 100 * parseFloat(assignment.totalGrade)).toFixed(2)}
-                                        <b>/</b>
-                                        {assignment.totalGrade} 
-                                    
-                                    </>
-                                ): "--"}
+                            <>
+                         {Number(
+                             (parseFloat(assignment.neededGrade) / 100) * parseFloat(assignment.totalGrade)
+                                 ).toFixed(2).replace(/\.00$/, "")}
+                              <b>/</b>
+                             {assignment.totalGrade}
+                              </>
+                                    ) : "--"}
 
                                 </div>  
                             </div>

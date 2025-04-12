@@ -202,6 +202,8 @@ const Courses = () => {
         className="cancel-button"
         onClick={() => {
           setShowModal(false);
+          setNewCourse({ name: "", subject: "", grade: "", unit: "" }); // ← reset form
+          setEditIndex(null);
         }}
       >
       <IoMdClose />

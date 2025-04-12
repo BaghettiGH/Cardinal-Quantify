@@ -109,9 +109,9 @@ function GradeTable({setFinalGrade}) {
                     
                     const getBackgroundColor = () =>{
                         if (!assignment.grade || !assignment.totalGrade) return "#CDCCCC";
-                        if (percentage >= 95) return "#39E379";
-                        if (percentage >= 85) return "#CDEE4B";
-                        if (percentage >= 70) return "#FF9600";
+                        if (percentage >= 90) return "#39E379";
+                        if (percentage >= 80) return "#CDEE4B";
+                        if (percentage >= 70) return "#FFEB00";
                         return "#FF3B30";
                         };
 
