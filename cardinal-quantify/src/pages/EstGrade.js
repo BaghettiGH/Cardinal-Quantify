@@ -41,9 +41,9 @@ const EstGradePg =() =>{
   const getBackgroundColor = (grade) =>{
     if (grade === ""|| isNaN(parseFloat(grade))) return "#CDCCCC";
     const numGrade = parseFloat(grade);
-    if (numGrade >= 95) return "#39E379";
-    if (numGrade >= 85) return "#CDEE4B";
-    if (numGrade >= 70) return "#FF9600";
+    if (numGrade >= 90) return "#39E379";
+    if (numGrade >= 80) return "#CDEE4B";
+    if (numGrade >= 70) return "#FFEB00";
     return "#FF3B30";
   }
 
